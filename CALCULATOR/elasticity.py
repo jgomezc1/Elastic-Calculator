@@ -126,6 +126,19 @@ def boussi(x,y,p):
     sigma = srp
     return sigma    
 #
+def boussidis(x , y , p , E , enu , d):
+    r=(x**2.+y**2.)**0.5
+    teta = np.arcsin(y/r)
+    Pi = np.pi
+    omnu = 1.0 - enu
+    if (r < 0.00001):
+        ur = 0.0 
+        ut = 0.0
+    else:
+        ur = (-2*p/Pi/E)*(np.cos(teta)*np.log(r))-(omnu*p/Pi/E)*(teta*np.sin(teta))+(2*p/Pi/E)*(np.cos(teta)*np.log(d))
+        ut = ( 2*enu*p/Pi/E)*(np.sin(teta)) + (2*p/Pi/E)*(np.sin(teta)*np.log(r))-(omnu*p/Pi/E)*(teta*np.cos(teta))+(omnu*p/Pi/E)*(np.sin(teta))-(2*p/Pi/E)*(np.sin(teta)*np.log(d))
+    return ur , ut   
+#
 def flamantP(x , y , p , phi):
     r=(x**2.+y**2.)**0.5
     teta = np.arcsin(y/r)
@@ -260,54 +273,4 @@ def tensor_cart_m(r,teta,f,m,beta):
     sigmaf[0,1]=txyp+txyq+txym
     sigmaf[1,0]=txyp+txyq+txym    
     return sigmaf   
-#
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+#    

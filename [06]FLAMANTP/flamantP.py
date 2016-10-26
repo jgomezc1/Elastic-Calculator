@@ -5,19 +5,21 @@ Created on Wed Nov 11 12:36:56 2015
 @author: eafit
 """
 import numpy as np
+from os import sys
+sys.path.append('../CALCULATOR/')
+from sympy import init_printing
+init_printing()
 import elasticity as ela
 import plotter as plo
 import generategeo as geo
-from sympy import init_printing
-init_printing()
 """
 Creates mesh files.
 """
-phid = 45.
+phid = 40.
 phi  = ela.radianes(phid)
-l = np.sqrt(32.)
+l = np.sqrt(16.)
 var = geo.wedge(l , phid, 0.1)
-nodes , elements , nn =geo.create_model(var)
+nodes , elements , nn =geo.create_model(var , False)
 coords=np.zeros([nn,2])
 SOL = np.zeros([nn])
 """

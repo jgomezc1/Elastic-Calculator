@@ -18,7 +18,7 @@ Creates model.
 a = 1.5
 b = 2.0
 var = geo.ring(a , b , 0.1 )
-nodes , elements , nn =geo.create_model(var)
+nodes , elements , nn =geo.create_model(var )
 """
 Define solution arrays
 """
@@ -44,4 +44,4 @@ for i in range(0,nn):
 # Plot the solution
 #
 plo.plot_stress(SOL , nodes , elements , plt_type ="contourf",  levels = 12 )
-#
+plo.viewmesh(nodes , elements , True)
