@@ -13,8 +13,8 @@ rcParams['font.family'] = 'serif'
 rcParams['font.size'] = 14
 rcParams['image.cmap'] = "YlGnBu_r"
 #
-def plot_disp(UC, nodes, elements , plt_type="contourf", levels=12,
-               savefigs=False, title="Solution:"):
+def plot_disp(UC, nodes, elements, Ngra , plt_type="contourf", levels=12,
+               savefigs=False, title="Solution:" ):
     """Plots a 2D nodal displacement field using a triangulation.
 
     Parameters
@@ -30,17 +30,17 @@ def plot_disp(UC, nodes, elements , plt_type="contourf", levels=12,
 
     """
     tri = mesh2tri(nodes, elements)
-    tri_plot(tri, UC[:, 0], title=r'$u_x$',
+    tri_plot(tri, UC[:, 0] , Ngra, title=r'$u_x$',
              figtitle=title + "Horizontal displacement",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
-             filename="ux_sol.pdf")
-    tri_plot(tri, UC[:, 1], title=r'$u_y$',
+             filename="ux_sol.pdf" )
+    tri_plot(tri, UC[:, 1],  Ngra , title=r'$u_y$',
              figtitle=title + "Vertical displacement",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="uy_sol.pdf")
 #
-def plot_SFIELD(UC, nodes, elements, plt_type="contourf",  levels=12,
-               savefigs=False, title="Solution:" ):
+def plot_SFIELD(UC, nodes, elements, Ngra  , plt_type="contourf",  levels=12,
+               savefigs=False, title="Solution:"  ):
     """Plots a user defined scalar field using a triangulation.
 
     Parameters
@@ -56,12 +56,12 @@ def plot_SFIELD(UC, nodes, elements, plt_type="contourf",  levels=12,
 
     """
     tri = mesh2tri(nodes, elements)
-    tri_plot(tri, UC ,  title=r'$U_{var}$',
+    tri_plot(tri, UC , Ngra , title=r'$U_{var}$',
              figtitle=title + "User variable",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="uservar.pdf")        
 #
-def plot_VFIELD(UC, nodes, elements, plt_type="contourf",  levels=12,
+def plot_VFIELD(UC, nodes, elements, Ngra, plt_type="contourf",  levels=12,
                savefigs=False, title="Solution:" ):
     """Plots a 2D user defined vector field using a triangulation.
 
@@ -78,16 +78,16 @@ def plot_VFIELD(UC, nodes, elements, plt_type="contourf",  levels=12,
 
     """
     tri = mesh2tri(nodes, elements)
-    tri_plot(tri, UC[:, 0], title=r'$u_x$',
+    tri_plot(tri, UC[:, 0], Ngra , title=r'$u_x$',
              figtitle=title + "Horizontal component",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="ux_sol.pdf")
-    tri_plot(tri, UC[:, 1], title=r'$u_y$',
+    tri_plot(tri, UC[:, 1], Ngra , title=r'$u_y$',
              figtitle=title + "Vertical component",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="uy_sol.pdf")             
 #
-def plot_TFIELD(UC, nodes, elements, plt_type="contourf",  levels=12,
+def plot_TFIELD(UC, nodes, elements, Ngra , plt_type="contourf",  levels=12,
                savefigs=False, title="Solution:" ):
     """Plots a 2D user defined symmetric tensor field using a triangulation.
 
@@ -104,20 +104,20 @@ def plot_TFIELD(UC, nodes, elements, plt_type="contourf",  levels=12,
 
     """
     tri = mesh2tri(nodes, elements)
-    tri_plot(tri, UC[:, 0], title=r'$S_{xx}$',
+    tri_plot(tri, UC[:, 0], Ngra , title=r'$S_{xx}$',
              figtitle=title + "xx component",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="ux_sol.pdf")
-    tri_plot(tri, UC[:, 1], title=r'$S_{yy}$',
+    tri_plot(tri, UC[:, 1], Ngra , title=r'$S_{yy}$',
              figtitle=title + "yy component",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="uy_sol.pdf")
-    tri_plot(tri, UC[:, 2], title=r'$S_{xy}$',
+    tri_plot(tri, UC[:, 2], Ngra , title=r'$S_{xy}$',
              figtitle=title + "xy component",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="uxy_sol.pdf")             
 #
-def plot_stress(S_nodes, nodes, elements,  plt_type="contourf", levels=12,
+def plot_stress(S_nodes, nodes, elements, Ngra ,  plt_type="contourf", levels=12,
                savefigs=False ):
     """Plots a 2 component stresses field using a triangulation.
     
@@ -136,17 +136,17 @@ def plot_stress(S_nodes, nodes, elements,  plt_type="contourf", levels=12,
 
     """
     tri = mesh2tri(nodes, elements)
-    tri_plot(tri, S_nodes[:, 0],  title=r'$\sigma_{11}$',
+    tri_plot(tri, S_nodes[:, 0], Ngra ,  title=r'$\sigma_{11}$',
              figtitle="Solution: sigma-xx stress",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="sigmaxx_sol.pdf")
-    tri_plot(tri, S_nodes[:, 1],  title=r'$\sigma_{22}$',
+    tri_plot(tri, S_nodes[:, 1], Ngra ,  title=r'$\sigma_{22}$',
              figtitle="Solution: sigma-xy stress",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="sigmaxy_sol.pdf")             
 #
-def plot_strain(e_nodes, nodes, elements,  plt_type="contourf", levels=12,
-               savefigs=False ):
+def plot_strain(e_nodes, nodes, elements, Ngra ,  plt_type="contourf", levels=12,
+               savefigs=False):
     """Plots a 2 component stresses field using a triangulation.
     
     The stresses need to be computed at nodes first.
@@ -164,20 +164,20 @@ def plot_strain(e_nodes, nodes, elements,  plt_type="contourf", levels=12,
 
     """
     tri = mesh2tri(nodes, elements)
-    tri_plot(tri, e_nodes[:, 0],  title=r'$\varepsilon _{xx}$',
+    tri_plot(tri, e_nodes[:, 0], Ngra ,  title=r'$\varepsilon _{xx}$',
              figtitle="Solution: epsilon-xx strain",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="sigmaxx_sol.pdf")
-    tri_plot(tri, e_nodes[:, 1],  title=r'$\varepsilon _{yy}$',
+    tri_plot(tri, e_nodes[:, 1], Ngra,  title=r'$\varepsilon _{yy}$',
              figtitle="Solution: epsilon-yy strain",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="sigmaxy_sol.pdf")
-    tri_plot(tri, e_nodes[:, 2],  title=r'$\gamma_{xy}$',
+    tri_plot(tri, e_nodes[:, 2], Ngra,  title=r'$\gamma_{xy}$',
              figtitle="Solution: gamma-xy strain",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="sigmaxy_sol.pdf")             
 #
-def plot_GRAD(UC, nodes, elements, plt_type="contourf",  levels=12,
+def plot_GRAD(UC, nodes, elements, Ngra , plt_type="contourf",  levels=12,
                savefigs=False, title="Solution:" ):
     """Plots the gradient of a user defined scalar field using triangulation.
 
@@ -196,11 +196,11 @@ def plot_GRAD(UC, nodes, elements, plt_type="contourf",  levels=12,
     tri = mesh2tri(nodes, elements)
     tcu = CubicTriInterpolator(tri, UC)
     (DuDx, DuDy) = tcu.gradient(tri.x, tri.y)
-    tri_plot(tri, DuDx,  title=r'$\frac{{\partial }}{{\partial x}}$',
+    tri_plot(tri, DuDx, Ngra , title=r'$\frac{{\partial }}{{\partial x}}$',
              figtitle="x gradient",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="dudx.pdf")
-    tri_plot(tri, DuDy,  title=r'$\frac{{\partial }}{{\partial y}}$',
+    tri_plot(tri, DuDy, Ngra , title=r'$\frac{{\partial }}{{\partial y}}$',
              figtitle="y gradient",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="dudy.pdf")
@@ -245,14 +245,14 @@ def mesh2tri(nodes, elements):
     return tri    
 
 
-def tri_plot(tri, field, title="", figtitle="", levels=12, savefigs=False,
-             plt_type="contourf" , filename="solution_plot.pdf" ):
+def tri_plot(tri, field, Ngra ,  title="", figtitle="", levels=12, savefigs=False,
+             plt_type="contourf" , filename="solution_plot.pdf"  ):
     
     if plt_type=="pcolor":
         disp_plot = plt.tripcolor
     elif plt_type=="contourf":
         disp_plot = plt.tricontourf
-        
+    plt.figure(Ngra)        
     plt.figure(figtitle)
     disp_plot(tri, field, levels, shading="gouraud")
     plt.title(title)

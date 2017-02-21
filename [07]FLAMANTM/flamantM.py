@@ -16,11 +16,11 @@ import generategeo as geo
 """
 Creates mesh files.
 """
-phid = 45.
+phid = 40.
 phi  = ela.radianes(phid)
-l = np.sqrt(1.)
-var = geo.wedge(l , phid, 0.1)
-nodes , elements , nn =geo.create_model(var )
+l = 0.25
+var = geo.wedge(l , phid, 0.01)
+nodes , elements , nn =geo.create_model(var , False )
 coords=np.zeros([nn,2])
 SOL = np.zeros([nn , 2])
 """
@@ -31,14 +31,15 @@ coords[:,1]=nodes[:,2]
 m = 1.0
 height = np.amax(coords[:,1])
 for i in range(0,nn):
-    X = coords[i,0]
-    Y = coords[i,1]
-    y = X
-    x = Y - height 
-    sigmar , sigmat =ela.flamantM(x , y , m , phid)
+    x = coords[i,0]
+    y = coords[i,1]
+    Y = x
+    X = height-y
+    sigmar , sigmat =ela.flamantM(X , Y , m , phid)
     SOL[i, 0] = sigmar
     SOL[i, 1] = sigmat
 """
 Plot the solution
 """
-plo.plot_stress(SOL , nodes , elements , plt_type ="contourf",  levels = 24 )
+plo.plot_stress(SOL , nodes , elements , 1 , plt_type ="contourf",  levels = 24 )
+#

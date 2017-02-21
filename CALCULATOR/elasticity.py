@@ -4,7 +4,10 @@ Elasticity solutions calculator
 Juan Vergara
 Juan Gomez
 """
+#
+import scipy.special as sci
 import numpy as np
+import signals as sig
 #
 def myfunction(x,y,p):
     """
@@ -115,7 +118,7 @@ def beam(x, y, nu, P, E, I, L, h):
 
     return u, v, exx, eyy, gammaxy        
 #
-def boussi(x,y,p):
+def boussipol(x,y,p):
     r=(x**2.+y**2.)**0.5
     teta = np.arcsin(y/r)
     Pi = np.pi
@@ -124,7 +127,21 @@ def boussi(x,y,p):
     else:
         srp = (-2*p/Pi)*(np.cos(teta)/r)
     sigma = srp
-    return sigma    
+    return sigma
+#
+def boussicar(x,y,p):
+    r=(x**2.+y**2.)**0.5
+    teta = np.arcsin(y/r)
+    Pi = np.pi
+    if (r < 0.00001):
+        Sxx = 0.0
+        Syy = 0.0
+        Txy = 0.0
+    else:
+        Sxx = (-2*p/Pi/r)*(np.cos(teta))**3
+        Syy = (-2*p/Pi/r)*(np.cos(teta)*(np.sin(teta)**2))
+        Txy = (-2*p/Pi/r)*(np.sin(teta)*(np.cos(teta)**2)) 
+    return Sxx , Syy , Txy    
 #
 def boussidis(x , y , p , E , enu , d):
     r=(x**2.+y**2.)**0.5
@@ -173,17 +190,17 @@ def flamantM(x , y , m , phi):
     phir = radianes(phi)
     f1 = np.sin(2*phir) 
     f2 = (2.0*phir)*np.cos(2.0*phir)
-    f3 = f1-f2
-    f4 = (np.cos(2.0*phir)-np.cos(2.0*teta))/r/r
-    if (r < 0.001):
+    f3 = (f1-f2)*r*r
+    f4 = (np.cos(2.0*phir)-np.cos(2.0*teta))
+    if (r > 0.1):
+        srp = (2*m/f3)*(np.sin(2.0*teta))
+        trp = (m/f3)*f4
+    else:
         srp = 0.0
         trp = 0.0
-    else:
-        srp = (2*m/f3)*(np.sin(2.0*teta)/r/r)
-        trp = (m/f3)*f4
     sigmar = srp
-    sigmat = trp
-    return sigmar , sigmat        
+    taor   = trp
+    return sigmar , taor        
 #
 def prering(x , y , a , b , pa , pb ):
     r=(x**2.+y**2.)**0.5
@@ -273,4 +290,127 @@ def tensor_cart_m(r,teta,f,m,beta):
     sigmaf[0,1]=txyp+txyq+txym
     sigmaf[1,0]=txyp+txyq+txym    
     return sigmaf   
-#    
+#
+def trifunac(x, y):
+    
+        ##################### DEFINICIÓN DE LOS VECTORES CON LOS TÉRMINOS DE HANKEL Y BESSEL ######################
+        
+    def Especiales(Delta, f): # El parámetro f define cuál de los 4 vectores voy a retornar
+        sumatoria = 130 #Número de veces que se van a evaluar las sumatorias de Hankekl
+        H = np.zeros((sumatoria), dtype = complex)  # Vector Hankel
+        B = np.zeros((sumatoria)) # Vector Bessel 
+        
+        if f == 0:
+            for i in range (0, sumatoria):        
+                H[i] = sci.hankel2(i, Delta)
+            return(H)
+        else: 
+            for i in range (0, sumatoria):
+                B[i] = sci.jv(i, Delta)
+            return(B)
+                
+        #############################################################################################################
+    Beta = 1.0 # Velocidad de la onda incidente en el medio
+    Gamma = 0.0 # Ángulo de incidencia de la onda
+    a = 1.0 # Radio del cañón
+    
+    Tt = 16.0 #Tiempo total que tendrá el pulso
+    Tc = 4.0 # Tiempo en el que estará centrado el pulso
+    fc = 1.0 # Frecuencia del pulso
+    Nf= 2048
+    Nt= 2*Nf+1
+    dt = Tt/(Nt-1)
+    deta = 2.0*a/Beta/Tt # Delta de frecuencias
+    neta  = int(4*fc*2/deta) # Número de frecuencias que se evaluaran
+    
+    lieta = deta # #Límite inferior para eta
+    lfeta = deta*neta # Límite superior para x
+    Eta = np.linspace(lieta, lfeta, neta, dtype=float)
+    
+    desplaz = np.zeros(len(Eta), dtype=complex)
+    suma = 64
+    
+    
+    if (y == 0):
+            
+        r = abs(x)
+            
+        if (x < 0):
+                
+            tetha = - np.pi/2.0
+        else:
+                
+            tetha = np.pi/2.0
+                
+    elif (x == 0):
+            
+        r = y
+        tetha = 0.0
+            
+    else:
+        
+        r = np.sqrt((x)**2 + (y)**2)
+        tetha = np.arctan(x / y)
+        
+        
+    for j in range (0, len(Eta)): # Variación de frecuencias para cada X
+    
+        kappa = (np.pi / a) * Eta[j]
+        ka = kappa * a
+        kr = kappa * r
+        Hankel = Especiales(kr, 0) #Vector de Hankel con argumento kr
+        Bessel = Especiales(kr, 1) # Vector de Bessel con argumento kr
+        
+        ######################################### CÁLCULO DEL INCOMING ###########################################         
+        S1 = 0 # Acumulador de la primera sumatoria del incoming
+        S2 = 0 #Acumulador de la segunda sumatoria del incoming
+                
+        for i in range (0,suma): #Términos de la sumatoria
+            n1 = i+1
+            S1 = S1 + ((-1)**n1 * Bessel[2*n1] * np.cos(2*n1*Gamma) * np.cos(2*n1*tetha))
+            S2 = S2 + ((-1)**i * Bessel[2*i+1] * np.sin((2*i+1)*Gamma) * np.sin((2*i+1)*tetha))
+                
+        incoming = (2.0 * Bessel[0]) + (4.0 * S1) - (4j * S2) 
+            
+        ##############################################   CÁLCULO DEL SCATTER #############################################
+                
+        Hanka = Especiales(ka, 0) # Vector de hankel con argumento ka
+        Beka = Especiales(ka, 1) # Vector de Bessel con argumento ka
+        A0 = -2.0 * (Beka[1] / Hanka[1])
+        B0 = 4j * np.sin(Gamma) * ((ka*Beka[0] - Beka[1]) / (ka*Hanka[0] - Hanka[1]))
+                
+        scatter = 0
+                
+        for i in range(0, suma):
+            if i == 0:
+                scatter = scatter + ( A0*Hankel[2*i]*np.cos(2*i*tetha) + B0*Hankel[2*i+1]*np.sin((2*i+1)*tetha) )
+            else:
+                    
+                An = -4 * (-1)**i * np.cos(2*i*Gamma) * ((ka*Beka[2*i-1] - 2*i*Beka[2*i]) / 
+                    (ka*Hanka[2*i-1] - (2*i)*Hanka[2*i])) 
+                        
+                Bn = 4j * ((-1)**i) * np.sin((2*i+1)*Gamma) * ((ka*Beka[2*i] - (2*i+1)*Beka[2*i+1]) / 
+                    (ka*Hanka[2*i] - (2*i+1)*Hanka[2*i+1]))
+                        
+                scatter = scatter + ( An*Hankel[2*i]*np.cos(2*i*tetha) + Bn*Hankel[2*i+1]*np.sin((2*i+1)*tetha) )
+                
+        desplaz[j] = incoming + scatter
+        
+    #return(desplaz) #Tener en cuenta el lugar del return
+    
+    Rick, T= sig.ricker(Nt, Tt, Tc, fc)
+    x , Sas , Saf , nfs = sig.Ftrans(Rick , Nt , dt , 10.0)
+    
+    TF = np.zeros(Nt, dtype=complex)
+    for i in range(neta):
+        
+        TF[i+1] = desplaz[i]
+        TF[-1-i] = np.conj(desplaz[i])
+    
+    for i in range(Nt):
+        
+        TF[i] = Saf[i] * TF[i]
+        
+    signal = sig.IFtrans(TF , Nt , dt)
+    
+    return(signal)    

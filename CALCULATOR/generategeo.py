@@ -407,3 +407,124 @@ def quad(l, h, c):
     file_name.close()
     
     return var
+
+#
+def canyon(r, l, h, c):
+    var = raw_input('jobname:--?')
+    file_name=open(var +'.geo', 'w')
+	
+    file_name.write('%40s \n' % ('// Input .geo for circular canyon domain'))
+	
+    file_name.write('%21s \n' % ('// author: Juan Gomez'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%4s %6.3f %25s \n' % ('c = ', c, '; 		// for size elements'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%3s %6.3f %26s \n' % ('r= ', r, '; 		// radio of the canyon'))
+	
+    file_name.write('%3s %6.3f %22s \n' % ('l= ', l, '; 		 // surface length'))
+	
+    file_name.write('%3s %6.3f %27s \n' % ('h= ', h, '; 		// height of the domain'))
+
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%23s \n' % ('// Define points'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%46s \n' % ('Point(1) = {-l/2, 0 , 0, c};		// {x,y,z, size}'))
+    file_name.write('%26s \n' % ('Point(2) = {-r, 0 , 0, c};'))
+    file_name.write('%25s \n' % ('Point(3) = {0, 0 , 0, c};'))
+    file_name.write('%25s \n' % ('Point(4) = {r, 0 , 0, c};'))
+    file_name.write('%27s \n' % ('Point(5) = {l/2, 0 , 0, c};'))
+    file_name.write('%27s \n' % ('Point(6) = {l/2, h , 0, c};'))
+    file_name.write('%28s \n' % ('Point(7) = {-l/2, h , 0, c};'))
+	
+    file_name.write('%0s \n' % (''))	
+
+    file_name.write('%24s \n' % ('// Define boundary lines'))
+    file_name.write('%48s \n' % ('Line(1) = {1, 2};		// {Initial_point, end_point}'))
+    file_name.write('%17s \n' % ('Line(2) = {4, 5};'))
+    file_name.write('%17s \n' % ('Line(3) = {5, 6};'))
+    file_name.write('%17s \n' % ('Line(4) = {6, 7};'))
+    file_name.write('%17s \n' % ('Line(5) = {7, 1};'))
+    file_name.write('%22s \n' % ('Circle(6) = {4, 3, 2};'))
+	
+    file_name.write('%0s \n' % (''))
+
+    file_name.write('%14s \n' % ('// Joint Lines'))
+    file_name.write('%66s \n' % ('Line Loop(1) = {1, -6, 2, 3, 4, 5};	// {Id_line1,id_line2, ... }'))
+	
+    file_name.write('%0s \n' % (''))
+
+    file_name.write('%35s \n' % ('// surface for mesh 			// {Id_Loop}'))
+    file_name.write('%23s \n' % ('Plane Surface(1) = {1};'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%19s \n' % ('// For Mesh 4 nodes'))
+    file_name.write('%40s \n' % ('Recombine Surface {1};			// {Id_Surface}'))
+	
+    file_name.write('%0s \n' % (''))
+	
+#     file_name.write('%19s \n' % ('// "Structure" mesh'))
+#     file_name.write('%41s \n' % ('Transfinite Surface {1};		// {Id_Surface}'))
+	
+    file_name.write('%0s \n' % (''))
+
+    file_name.write('%28s \n' % ('Physical Surface(2000) = {1};'))
+	
+    file_name.close()
+    
+    return var
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

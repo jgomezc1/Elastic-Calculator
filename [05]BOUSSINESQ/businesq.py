@@ -15,38 +15,45 @@ import generategeo as geo
 """
 Creates mesh files.
 """
-l = 20.0
-h = 20.0
-var = geo.boussinesq(l, h, 1.0)
-nodes , elements , nn =geo.create_model(var )
+l = 5.0
+h = 5.0
+var = geo.boussinesq(l, h, 0.25)
+nodes , elements , nn =geo.create_model(var , False )
 #
 coords=np.zeros([nn,2])
 SOLS = np.zeros([nn])
 SOLU = np.zeros([nn , 2])
+SOLC = np.zeros([nn , 3])
 coords[:,0]=nodes[:,1]
 coords[:,1]=nodes[:,2]
 """
 Computes the solution
 """
-p = 1.0
+p =-1.0
 E = 1.0
 enu = 0.3
  
 height = np.amax(coords[:,1])
 for i in range(0,nn):
-    X = coords[i,0]
-    Y = coords[i,1]
-    y = X     #shifts the origin for l = 5.0
-    x = Y - height 
-    sigma =ela.boussi(x,y,p)
-    ur , ut = ela.boussidis(x , y , p , E , enu , height)
+    x = coords[i,0]
+    y = coords[i,1]
+    Y = - x
+    X = height-y
+    sigma = ela.boussipol(X , Y , p)
+    sx , sy , txy      = ela.boussicar(X , Y , p)
+    ur , ut = ela.boussidis(X , Y , p , E , enu , height)
     SOLS[i] = sigma
     SOLU[i , 0] = ur
-    SOLU[i , 1] = ut    
+    SOLU[i , 1] = ut 
+#
+    SOLC[i , 0] = sx
+    SOLC[i , 1] = sy
+    SOLC[i , 2] = txy
 """
 Plot the solution
 """
-plo.plot_UVAR(SOLS, nodes , elements , plt_type ="contourf", levels = 12 )
-plo.plot_disp(SOLU, nodes , elements , plt_type="contourf" , levels = 12 )
+#plo.plot_SFIELD(SOLS, nodes , elements , plt_type ="contourf", levels = 24 )
+#plo.plot_disp(SOLU, nodes , elements , plt_type="contourf" ,   levels = 12 )
+plo.plot_TFIELD(SOLC, nodes , elements , plt_type="contourf" , levels = 24  )
 #
-plo.viewmesh(nodes , elements)
+plo.viewmesh(nodes , elements , True)

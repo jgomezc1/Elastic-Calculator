@@ -15,10 +15,10 @@ import generategeo as geo
 """
 Creates mesh files.
 """
-l = 24.0
+L = 24.0
 h = 8.0
-var = geo.beam(l, h, 1.0)
-nodes , elements , nn =geo.create_model(var , False )
+var = geo.beam(L, h, 1.0)
+nodes , elements , nn =geo.create_model(var , True)
 #
 coords=np.zeros([nn,2])
 U=np.zeros([nn , 2])
@@ -33,12 +33,10 @@ P = -50.0
 nu = 0.30
 E = 1000.0
 I = 42.67
-L = 24.0
-h = 8.0
 for i in range(0,nn):
     x = coords[i,0]
     y = coords[i,1]
-    u, v, exx, eyy, gammaxy =ela.beam(x, y, nu, P, E, I, L, h)
+    u, v, exx, eyy, gammaxy =ela.beam(x , y , nu , P , E , I , L , h)
     U[i , 0] = u
     U[i , 1] = v
     STR[i , 0]= exx
@@ -47,6 +45,6 @@ for i in range(0,nn):
 """
 Plot the solution
 """
-plo.plot_disp(U  , nodes, elements)
-plo.plot_strain(STR , nodes , elements)
+plo.plot_disp(U  , nodes, elements, 1)
+plo.plot_strain(STR , nodes , elements,1)
 #

@@ -15,11 +15,11 @@ import generategeo as geo
 """
 Creates mesh files.
 """
-phid = 45.
+phid = 30.
 phi  = ela.radianes(phid)
-l = np.sqrt(1.)
+l = np.sqrt(16.0)
 var = geo.wedge(l , phid, 0.1)
-nodes , elements , nn =geo.create_model(var)
+nodes , elements , nn =geo.create_model(var , False)
 coords=np.zeros([nn,2])
 SOL = np.zeros([nn])
 #
@@ -32,14 +32,14 @@ Computes the solution
 q = 1.0
 height = np.amax(coords[:,1])
 for i in range(0,nn):
-    X = coords[i,0]
-    Y = coords[i,1]
-    y = X
-    x = Y - height
-    sigma =ela.flamantQ(x , y , q , phid)
+    x = coords[i,0]
+    y = coords[i,1]
+    Y = x
+    X = height-y
+    sigma =ela.flamantQ(X , Y , q , phid)
     SOL[i] = sigma
 """
 Plot the solution
 """
-plo.plot_UVAR(SOL, nodes , elements , plt_type ="contourf",  levels = 24 )
+plo.plot_SFIELD(SOL, nodes , elements , plt_type ="contourf",  levels = 24 )
 #

@@ -7,41 +7,40 @@ Created on Wed Nov 11 12:36:56 2015
 import numpy as np
 from os import sys
 sys.path.append('../CALCULATOR/')
-import elasticity as ela
 import plotter as plo
 import generategeo as geo
+import elasticity as ela
 from sympy import init_printing
 init_printing()
 """
 Creates model.
 """
-a = 2.0
-b = 3.0
-var = geo.ring(a , b , 0.1 )
+ninc = 4097
+r = 1.0
+l = 6.0
+h = 3.0
+c = 0.15
+var = geo.canyon(r, l, h, c)
 nodes , elements , nn =geo.create_model(var , False)
+plo.viewmesh(nodes , elements , True)
 """
 Define solution arrays
 """
 coords=np.zeros([nn,2])
-SOL = np.zeros([nn , 2])
+SOL = np.zeros([nn,ninc])
 coords[:,0]=nodes[:,1]
 coords[:,1]=nodes[:,2]
 """
-Define pressures (a: internal; b external)
-"""
-pa =  1.0
-pb =  2.0
-"""
 Computes the solution
 """
-for i in range(0,nn):
+for i in range(nn):
     x = coords[i,0]
-    y = coords[i,1] 
-    sigmar , sigmat =ela.prering(x , y , a , b , pa , pb)
-    SOL[i, 0] = sigmar
-    SOL[i, 1] = sigmat
+    y = coords[i,1]
+    u = ela.trifunac(x , y )
+    for j in range(ninc):
+        SOL[i,j] = u[j]
 #
 # Plot the solution
 #
-plo.plot_stress(SOL , nodes , elements ,1, plt_type ="contourf",  levels = 12 )
-plo.viewmesh(nodes , elements , True)
+#plo.plot_SFIELD(SOL[:,  0], nodes, elements , 1 , plt_type="contourf",  levels=12)
+

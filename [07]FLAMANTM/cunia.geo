@@ -1,10 +1,10 @@
 // Input .geo for wedge 
 // author: Juan Gomez 
   
-c =   0.100  ; 		// for size elements 
+c =   0.010  ; 		// for size elements 
  
-l=    4.000000000000000000000000000000000000 ; 
-fi=   39.00000000 ; 
+l=    0.250000000000000000000000000000000000 ; 
+fi=   40.00000000 ; 
 fi= fi*Pi/180.0; 
  
  
