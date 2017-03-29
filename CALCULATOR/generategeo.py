@@ -10,12 +10,17 @@ import numpy as np
 import os
 sys.path.append('../CALCULATOR/')
 #
-def create_model(var = '', seemesh = True):
+def create_model(var = '', ietype = 1 , seemesh = True):
+    """
+     ietype = 1 (bi-linear elements)
+     ietype = 2 (cadratic triangles)
+     ietype = 3 (linar triangles)
+    """
 #    var = raw_input('jobname:--?')
     os.system ('/Applications/Gmsh.app/Contents/MacOS/gmsh' + ' ' + var + '.geo -2 -order 1')
     file_name=open('input.txt', 'w')
     file_name.write('%5s \n' % (var))
-    file_name.write('%2s \n' % ('1'))
+    file_name.write('%2s \n' % (ietype))
     file_name.close()
     os.system ('../CALCULATOR/./mallador')
     nodes        = np.loadtxt('nodes.txt')
@@ -479,6 +484,146 @@ def canyon(r, l, h, c):
 	
     file_name.close()
     
+    return var
+
+
+def WedgeDifrac(L1, theta, c):
+    
+    #L1 is lenght of the wedge, if theta=180° L1 should be minor than 20
+    # theta is the inside angle of the wedge 0°<theta<180°
+    
+    var = raw_input('jobname:--?')
+    file_name=open(var +'.geo', 'w')
+	
+    file_name.write('%23s \n' % ('// Input .geo for wedge'))
+	
+    file_name.write('%21s \n' % ('// author: Juan Gomez'))
+	
+    file_name.write('%1s \n' % (' '))
+	
+    file_name.write('%4s %6.3f %25s \n' % ('c = ', c, '; 		// for size elements'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%3s %40.36f %1s \n' % ('L1= ', L1, ';'))
+	
+    file_name.write('%4s %12.8f %1s \n' % ('theta= ', theta, ';'))
+
+    file_name.write('%16s \n' % ('theta= theta*Pi/180.0;'))
+	
+    file_name.write('%0s \n' % (''))
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%23s \n' % ('// Define vertex points'))
+    file_name.write('%0s \n' % (''))
+
+	
+    file_name.write('%42s \n' % ('Point(1) = {0, L1*Cos(0.5*theta), 0, c};		// {x,y,z, size}'))
+    file_name.write('%59s \n' % ('Point(2) = {L1*Sin(0.5*theta), 0, 0, c};		// {x,y,z, size}'))
+    file_name.write('%58s \n' % ('Point(3) = {30, 0, 0, c};		// {x,y,z, size}'))
+    file_name.write('%58s \n' % ('Point(4) = {30, L1*Cos(0.5*theta)+30, 0, c};		// {x,y,z, size}'))
+    file_name.write('%58s \n' % ('Point(5) = {-30, L1*Cos(0.5*theta)+30, 0, c};		// {x,y,z, size}'))
+    file_name.write('%58s \n' % ('Point(6) = {-30, 0, 0, c};		// {x,y,z, size}'))
+    file_name.write('%58s \n' % ('Point(7) = {-L1*Sin(0.5*theta), 0, 0, c};		// {x,y,z, size}'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%24s \n' % ('// Define boundary lines'))
+    file_name.write('%48s \n' % ('Line(1) = {1, 2};		// {Initial_point, end_point}'))
+    file_name.write('%17s \n' % ('Line(2) = {2, 3};'))
+    file_name.write('%17s \n' % ('Line(3) = {3, 4};'))
+    file_name.write('%17s \n' % ('Line(4) = {4, 5};'))
+    file_name.write('%17s \n' % ('Line(5) = {5, 6};'))
+    file_name.write('%17s \n' % ('Line(6) = {6, 7};'))
+    file_name.write('%17s \n' % ('Line(7) = {7, 1};'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%14s \n' % ('// Joint Lines'))
+    file_name.write('%57s \n' % ('Line Loop(1) = {1, 2, 3, 4, 5, 6, 7};	// {Id_line1,id_line2, ... }'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%35s \n' % ('// surface for mesh 			// {Id_Loop}'))
+    file_name.write('%23s \n' % ('Plane Surface(1) = {1};'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%19s \n' % ('// For Mesh 4 nodes'))
+    file_name.write('%40s \n' % ('Recombine Surface {1};			// {Id_Surface}'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%19s \n' % ('// "Structure" mesh'))
+    file_name.write('%41s \n' % ('Transfinite Surface {1};		// {Id_Surface}'))
+	
+    file_name.write('%0s \n' % (''))
+
+    file_name.write('%28s \n' % ('Physical Surface(100) = {1};'))
+	
+    file_name.close()
+	
+    return var
+
+def dam(h , c):
+    var = raw_input('jobname:--?')
+    file_name=open(var +'.geo', 'w')
+	
+    file_name.write('%23s \n' % ('// Input .geo for DAM'))
+	
+    file_name.write('%21s \n' % ('// author: Flaco Sierra'))
+	
+    file_name.write('%1s \n' % (' '))
+	
+    file_name.write('%4s %6.3f %25s \n' % ('c = ', c, '; 		// for size elements'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%4s %12.8f %1s \n' % ('h= ', h, ';'))
+	
+    file_name.write('%0s \n' % (''))
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%23s \n' % ('// Define vertex points'))
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%42s \n' % ('Point(1) = {0, 0, 0, c};		// {x,y,z, size}'))
+    file_name.write('%59s \n' % ('Point(2) = {h, 0, 0, c};		// {x,y,z, size}'))
+    file_name.write('%58s \n' % ('Point(3) = {h, h, 0, c};		    // {x,y,z, size}'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%24s \n' % ('// Define boundary lines'))
+    file_name.write('%48s \n' % ('Line(1) = {1, 2};		// {Initial_point, end_point}'))
+    file_name.write('%17s \n' % ('Line(2) = {2, 3};'))
+    file_name.write('%17s \n' % ('Line(3) = {3, 1};'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%14s \n' % ('// Joint Lines'))
+    file_name.write('%57s \n' % ('Line Loop(1) = {1, 2, 3};	// {Id_line1,id_line2, ... }'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%35s \n' % ('// surface for mesh 			// {Id_Loop}'))
+    file_name.write('%23s \n' % ('Plane Surface(1) = {1};'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    #file_name.write('%19s \n' % ('// For Mesh 4 nodes'))
+    #file_name.write('%40s \n' % ('Recombine Surface {1};			// {Id_Surface}'))
+	
+    #file_name.write('%0s \n' % (''))
+	
+#    file_name.write('%19s \n' % ('// "Structure" mesh'))
+#    file_name.write('%41s \n' % ('Transfinite Surface {1};		// {Id_Surface}'))
+	
+#    file_name.write('%0s \n' % (''))
+
+    file_name.write('%28s \n' % ('Physical Surface(100) = {1};'))
+	
+    file_name.close()
+	
     return var
 
 

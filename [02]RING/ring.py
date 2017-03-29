@@ -43,5 +43,5 @@ for i in range(0,nn):
 #
 # Plot the solution
 #
-plo.plot_stress(SOL , nodes , elements ,1, plt_type ="contourf",  levels = 12 )
+plo.plot_stress(SOL , nodes , elements ,1, plt_type ="pcolor",  levels = 12 )
 plo.viewmesh(nodes , elements , True)

@@ -39,6 +39,6 @@ for i in range(0,nn):
 """
 Plot the solution
 """
-plo.plot_SFIELD(SOL, nodes , elements , plt_type ="contourf",  levels = 24 )
+plo.plot_SFIELD(SOL, nodes , elements , 1 , plt_type ="contourf",  levels = 24 )
 plo.viewmesh(nodes , elements , view = True)
 #

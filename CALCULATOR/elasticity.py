@@ -413,4 +413,143 @@ def trifunac(x, y):
         
     signal = sig.IFtrans(TF , Nt , dt)
     
-    return(signal)    
+    return(signal)
+
+def dam(x,y,gamma):
+    """Computes the solution for self-equilibated wedge
+       at a point (x , y)
+
+    Parameters
+    ----------
+    nu  :float, (-1, 0.5)
+         Poisson coefficient.
+    S   :float
+         Applied shear traction over the faces of the wedge.
+    E   :float, >0
+         Young modulus.
+    l   :float, >0
+         Length of the inclined face of the wedge.
+    phi :float, >0
+         Half-angle of the wedge.
+
+    Returns
+    -------
+    ux : float
+         Horizontal displacement at (x , y).
+    uy : float
+         Vertical displacement at (x , y).       
+    References
+    ----------
+    .. [1] Timoshenko, S. & Goodier, J., 1970. Theory of Elasticity,
+        McGraw-Hill, 3rd Ed.
+
+    """
+#
+    sigx =  gamma*x-2.0*gamma*y
+    sigy = -gamma*x
+    tao  = -gamma*y
+    return sigx , sigy , tao
+    
+    
+def DifractionSesma(x,y):
+    
+    Ui = 1j
+    v = 3/2
+
+    r0 = 10
+    phi0 = 20*np.pi/180    
+    
+    r = np.sqrt((x)**2 + (y)**2)
+    phi = np.arctan(x / y)
+    
+    R=[r,r0]   
+    
+    Beta = 1.0 # Velocidad de la onda incidente en el medio
+    
+    Tt = 16.0 #Tiempo total que tendrá el pulso
+    Tc = 4.0 # Tiempo en el que estará centrado el pulso
+    fc = 1.0 # Frecuencia del pulso
+    Nf= 2048
+    Nt= 2*Nf+1
+    dt = Tt/(Nt-1)
+    deta = 2.0/Beta/Tt # Delta de frecuencias
+    neta  = int(4*fc*2/deta) # Número de frecuencias que se evaluaran
+    
+    lieta = deta # #Límite inferior para eta
+    lfeta = deta*neta # Límite superior para x
+    Eta = np.linspace(lieta, lfeta, neta, dtype=float)
+    
+    W = np.zeros(len(Eta), dtype=complex)
+
+    Vdt =np.zeros(Nt)
+                
+    for i in range(Nt):
+         Vdt[i] = i*dt    
+    
+    
+    
+    def Especiales(Delta, f): # El parámetro f define cuál de los vectores voy a retornar
+        
+        sumatoria = 100 #Número de veces que se van a evaluar las sumatorias de Hankel
+        
+        H = np.zeros((sumatoria), dtype = complex)  # Vector Hankel
+        B = np.zeros((sumatoria)) # Vector Bessel 
+        
+        if f == 0:
+            for i in range (0, sumatoria):        
+                H[i] = sci.hankel1(i, Delta)
+            return(H)
+        else: 
+            for i in range (0, sumatoria):
+                B[i] = sci.jv(i, Delta)
+            return(B)
+    
+    for j in range (0, len(Eta)):
+       
+        k = Eta[j]/Beta
+        
+        r = min(R)        
+        bessel = Especiales(k*r,1)
+        
+        r = max(R)
+        hankel = Especiales(k*r,0)
+        
+        S = hankel*bessel
+        
+        wii = 0
+        n = 100
+
+        for i in range (n):
+            
+            En = 0
+            
+            if i==0:
+                En = 1
+            else:
+                En = 2
+            
+            wi = (Ui/(2*v))*En*np.cos((i/v)*(phi + v*np.pi*0.5))*np.cos((i/v)*(phi0 + v*np.pi*0.5))*S[i/v]
+            
+            wii = wii + wi
+            
+            
+        W[j] = wii
+        
+
+    Rick, T= sig.ricker(Nt, Tt, Tc, fc)
+    x , Sas , Saf , nfs = sig.Ftrans(Rick , Nt , dt , 10.0)
+    
+    TF = np.zeros(Nt, dtype=complex)
+    for i in range(neta):
+        
+        TF[i+1] = W[i]
+        TF[-1-i] = np.conj(W[i])
+    
+    for i in range(Nt):
+        
+        TF[i] = Saf[i] * TF[i]
+        
+        
+    signal = sig.IFtrans(TF , Nt , dt)
+    
+    return(signal)

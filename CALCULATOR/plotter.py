@@ -143,6 +143,38 @@ def plot_stress(S_nodes, nodes, elements, Ngra ,  plt_type="contourf", levels=12
     tri_plot(tri, S_nodes[:, 1], Ngra ,  title=r'$\sigma_{22}$',
              figtitle="Solution: sigma-xy stress",
              levels=levels, plt_type=plt_type, savefigs=savefigs,
+             filename="sigmaxy_sol.pdf")
+
+def plot_tension(e_nodes, nodes, elements, Ngra ,  plt_type="contourf", levels=12,
+               savefigs=False):
+    """Plots a 2 component stresses field using a triangulation.
+    
+    The stresses need to be computed at nodes first.
+
+    Parameters
+    ----------
+    S_nodes : ndarray (float)
+      Array with the nodal stresses.
+    nodes : ndarray (float)
+      Array with number and nodes coordinates:
+        `number coordX coordY`
+    elements : ndarray (int)
+      Array with the node number for the nodes that correspond to each
+      element.
+
+    """
+    tri = mesh2tri(nodes, elements)
+    tri_plot(tri, e_nodes[:, 0], Ngra ,  title=r'$\sigma _{xx}$',
+             figtitle="Solution: epsilon-xx strain",
+             levels=levels, plt_type=plt_type, savefigs=savefigs,
+             filename="sigmaxx_sol.pdf")
+    tri_plot(tri, e_nodes[:, 1], Ngra,  title=r'$\sigma _{yy}$',
+             figtitle="Solution: epsilon-yy strain",
+             levels=levels, plt_type=plt_type, savefigs=savefigs,
+             filename="sigmayy_sol.pdf")
+    tri_plot(tri, e_nodes[:, 2], Ngra,  title=r'$sigma _{xy}$',
+             figtitle="Solution: gamma-xy strain",
+             levels=levels, plt_type=plt_type, savefigs=savefigs,
              filename="sigmaxy_sol.pdf")             
 #
 def plot_strain(e_nodes, nodes, elements, Ngra ,  plt_type="contourf", levels=12,
@@ -247,12 +279,12 @@ def mesh2tri(nodes, elements):
 
 def tri_plot(tri, field, Ngra ,  title="", figtitle="", levels=12, savefigs=False,
              plt_type="contourf" , filename="solution_plot.pdf"  ):
-    
+
+    plt.figure(Ngra)    
     if plt_type=="pcolor":
         disp_plot = plt.tripcolor
     elif plt_type=="contourf":
-        disp_plot = plt.tricontourf
-    plt.figure(Ngra)        
+        disp_plot = plt.tricontourf        
     plt.figure(figtitle)
     disp_plot(tri, field, levels, shading="gouraud")
     plt.title(title)

@@ -15,36 +15,32 @@ import generategeo as geo
 """
 Creates mesh files.
 """
-L = 4.0
-h = 2.0
-var = geo.beam(L, h, 0.2)
-nodes , elements , nn =geo.create_model(var , False)
-#
+h = 9.0
+var = geo.dam(h , 0.25)
+ietype = 3
+nodes , elements , nn =geo.create_model(var, ietype , False )
+plo.viewmesh(nodes , elements , True)
 coords=np.zeros([nn,2])
-U=np.zeros([nn , 2])
-STR = np.zeros([nn , 3 ])
+Sig=np.zeros([nn , 3])
+#
 coords[:,0]=nodes[:,1]
 coords[:,1]=nodes[:,2]
-plo.viewmesh(nodes , elements , True)
 """
 Computes the solution
 """
-P = -50.0
-nu = 0.30
-E = 1000.0
-I = 42.67
+gamma = 1.0/3.0
+
 for i in range(0,nn):
     x = coords[i,0]
     y = coords[i,1]
-    u, v, exx, eyy, gammaxy =ela.beam(x , y , nu , P , E , I , L , h)
-    U[i , 0] = u
-    U[i , 1] = v
-    STR[i , 0]= exx
-    STR[i , 1]= eyy
-    STR[i , 2]= gammaxy
+    sx , sy , tao  = ela.dam(x , y , gamma)
+    Sig[i , 0] = sx
+    Sig[i , 1] = sy
+    Sig[i , 2] = tao
 """
 Plot the solution
 """
-plo.plot_disp(U  , nodes, elements, 1)
-plo.plot_strain(STR , nodes , elements,1)
+#plo.plot_stressF(Sig, nodes, elements , 1 , savefigs = True)
+#
+plo.plot_tension(Sig , nodes , elements, 1)
 #
