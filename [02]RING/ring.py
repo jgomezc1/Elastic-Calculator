@@ -18,7 +18,7 @@ Creates model.
 a = 2.0
 b = 3.0
 var = geo.ring(a , b , 0.1 )
-nodes , elements , nn =geo.create_model(var , False)
+nodes , elements , nn =geo.create_model(var , 1 , True)
 """
 Define solution arrays
 """
