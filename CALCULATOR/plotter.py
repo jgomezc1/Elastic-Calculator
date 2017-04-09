@@ -261,15 +261,15 @@ def mesh2tri(nodes, elements):
     y = nodes[:, 2]
     triangs = []
     for el in elements:
-        if el[1]==1:
+        if el[1]==3:
             triangs.append(el[[3, 4, 5]])
             triangs.append(el[[5, 6, 3]])
-        if el[1]==2:
+        if el[1]==9:
             triangs.append(el[[3, 6, 8]])
             triangs.append(el[[6, 7, 8]])
             triangs.append(el[[6, 4, 7]])
             triangs.append(el[[7, 5, 8]])
-        if el[1]==3:
+        if el[1]==2:
             triangs.append(el[3:])
     
     tri = Triangulation(x, y, np.array(triangs))
@@ -319,15 +319,15 @@ def viewmesh(nodes , elements , view = False):
     y = nodes[:, 2]
     triangs = []
     for el in elements:
-        if el[1]==1:
+        if el[1]==3:
             triangs.append(el[[3, 4, 5]])
             triangs.append(el[[5, 6, 3]])
-        if el[1]==2:
+        if el[1]==9:
             triangs.append(el[[3, 6, 8]])
             triangs.append(el[[6, 7, 8]])
             triangs.append(el[[6, 4, 7]])
             triangs.append(el[[7, 5, 8]])
-        if el[1]==3:
+        if el[1]==2:
             triangs.append(el[3:])
     
     tri = Triangulation(x, y, np.array(triangs))

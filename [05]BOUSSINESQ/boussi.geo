@@ -27,8 +27,7 @@ Line Loop(1) = {1, 2, 3, 4, 5};	// {Id_line1,id_line2, ... }
 // surface for mesh 			// {Id_Loop} 
 Plane Surface(1) = {1}; 
  
-// For Mesh 4 nodes 
-Recombine Surface {1};			// {Id_Surface} 
+//Recombine Surface {1};			// {Id_Surface} 
  
 // "Structure" mesh 
 Transfinite Surface {1};		// {Id_Surface} 

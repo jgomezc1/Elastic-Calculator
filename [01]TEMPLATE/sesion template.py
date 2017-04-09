@@ -33,8 +33,11 @@ init_printing()
 l = 1.5
 h = 2.0
 c = 0.5
-var = geo.mygeom(l, h, c)
-nodes , elements , nn =geo.create_model(var)
+ietype = 9
+order  = 2
+var = geo.mygeom(l, h, c , ietype)
+geo.create_mesh(order , var  , seemesh = True)
+nodes , elements , nn = geo.writefiles(ietype , var)
 """
 Define solution arrays
 """
@@ -55,5 +58,5 @@ for i in range(0,nn):
 """
 (iii) Plot the solution using the appropriate function from plotter.py
 """
-plo.plot_UVAR(SOL, nodes , elements , plt_type ="contourf", levels = 12 )
+plo.plot_SFIELD(SOL, nodes , elements, 1 , plt_type ="contourf", levels = 12 )
 #

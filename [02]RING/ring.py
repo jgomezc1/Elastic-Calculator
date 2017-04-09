@@ -12,13 +12,15 @@ import plotter as plo
 import generategeo as geo
 from sympy import init_printing
 init_printing()
-"""
-Creates model.
-"""
+
 a = 2.0
 b = 3.0
-var = geo.ring(a , b , 0.1 )
-nodes , elements , nn =geo.create_model(var , 1 , True)
+c = 0.1
+ietype = 9
+order  = 2
+var = geo.ring(a , b , c , ietype)
+geo.create_mesh(order , var  , seemesh = True)
+nodes , elements , nn = geo.writefiles(ietype , var)
 """
 Define solution arrays
 """
@@ -43,5 +45,5 @@ for i in range(0,nn):
 #
 # Plot the solution
 #
-plo.plot_stress(SOL , nodes , elements ,1, plt_type ="pcolor",  levels = 12 )
+plo.plot_stress(SOL , nodes , elements , 1 , plt_type ="pcolor",  levels = 12 )
 plo.viewmesh(nodes , elements , True)

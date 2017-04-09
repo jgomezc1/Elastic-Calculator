@@ -17,8 +17,11 @@ Creates mesh files.
 """
 L = 4.0
 h = 2.0
-var = geo.beam(L, h, 0.2)
-nodes , elements , nn =geo.create_model(var , False)
+ietype = 9
+order  = 2
+var = geo.beam(L, h, 0.2 , ietype)
+geo.create_mesh(order , var  , seemesh = True)
+nodes , elements , nn = geo.writefiles(ietype , var)
 #
 coords=np.zeros([nn,2])
 U=np.zeros([nn , 2])

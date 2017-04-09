@@ -20,8 +20,11 @@ r = 1.0
 l = 6.0
 h = 3.0
 c = 0.15
-var = geo.canyon(r, l, h, c)
-nodes , elements , nn =geo.create_model(var , False)
+ietype = 9
+order  = 2
+var = geo.canyon(r, l, h, c , ietype)
+geo.create_mesh(order , var  , seemesh = True)
+nodes , elements , nn = geo.writefiles(ietype , var)
 plo.viewmesh(nodes , elements , True)
 """
 Define solution arrays
@@ -39,8 +42,8 @@ for i in range(nn):
     u = ela.trifunac(x , y )
     for j in range(ninc):
         SOL[i,j] = u[j]
-#
+
 # Plot the solution
-#
+
 #plo.plot_SFIELD(SOL[:,  0], nodes, elements , 1 , plt_type="contourf",  levels=12)
 

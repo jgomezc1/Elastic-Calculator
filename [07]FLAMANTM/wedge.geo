@@ -3,8 +3,8 @@
   
 c =   0.100  ; 		// for size elements 
  
-l=    4.000000000000000000000000000000000000 ; 
-fi=   45.00000000 ; 
+l=    0.250000000000000000000000000000000000 ; 
+fi=   40.00000000 ; 
 fi= fi*Pi/180.0; 
  
  
@@ -28,7 +28,7 @@ Line Loop(1) = {1, 2, 3, 4};	// {Id_line1,id_line2, ... }
 Plane Surface(1) = {1}; 
  
 // For Mesh 4 nodes 
-Recombine Surface {1};			// {Id_Surface} 
+//Recombine Surface {1};			// {Id_Surface} 
  
 // "Structure" mesh 
 Transfinite Surface {1};		// {Id_Surface} 

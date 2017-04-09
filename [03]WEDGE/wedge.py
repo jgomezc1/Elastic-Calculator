@@ -20,8 +20,11 @@ phi  = ela.radianes(phid)
 l = np.sqrt(16.)
 b = l*np.cos(phi)
 h = l*np.sin(phi)
-var = geo.wedge(l , phid, 0.1)
-nodes , elements , nn =geo.create_model(var , False )
+ietype = 9
+order = 2
+var = geo.wedge(l , phid, 0.1 , ietype)
+geo.create_mesh(order , var  , seemesh = True)
+nodes , elements , nn = geo.writefiles(ietype , var)
 plo.viewmesh(nodes , elements , True)
 coords=np.zeros([nn,2])
 U=np.zeros([nn , 2])

@@ -24,10 +24,13 @@ import generategeo as geo
 """
 Creates mesh files.
 """
-l = 24.0
+L = 24.0
 h = 24.0
-var = geo.beam(l, h, 1.0)
-nodes , elements , nn =geo.create_model(var)
+ietype = 9
+order  = 2
+var = geo.beam(L, h, 0.2 , ietype)
+geo.create_mesh(order , var  , seemesh = True)
+nodes , elements , nn = geo.writefiles(ietype , var)
 #
 coords=np.zeros([nn,2])
 U = np.zeros([nn , 2 ])
@@ -55,16 +58,16 @@ for i in range(0,nn):
 """
 Plot the analytic displacement and strain solution
 """
-plo.plot_VFIELD(U  , nodes, elements)
-plo.plot_TFIELD(STR, nodes, elements)
+plo.plot_VFIELD(U  , nodes, elements , 1)
+plo.plot_TFIELD(STR, nodes, elements , 1)
 """
 Plot the displacement-based displacement gradient
 """
-DuDx , DuDy = plo.plot_GRAD(U[: , 0] , nodes , elements)
-DvDx , DvDy = plo.plot_GRAD(U[: , 1] , nodes , elements)
+DuDx , DuDy = plo.plot_GRAD(U[: , 0] , nodes , elements , 1)
+DvDx , DvDy = plo.plot_GRAD(U[: , 1] , nodes , elements , 1)
 """
 Computes and plots the displacement-based shear strain.
 """
 str = 0.5 * (DuDy + DvDx)
-plo.plot_SFIELD(str  , nodes, elements)
+plo.plot_SFIELD(str  , nodes, elements , 1)
 #

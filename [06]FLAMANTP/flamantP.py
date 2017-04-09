@@ -18,8 +18,11 @@ Creates mesh files.
 phid = 40.
 phi  = ela.radianes(phid)
 l = np.sqrt(1.0)
-var = geo.wedge(l , phid, 0.1)
-nodes , elements , nn =geo.create_model(var , False)
+ietype = 9
+order  = 2
+var = geo.wedge(l , phid, 0.1 , ietype)
+geo.create_mesh(order , var  , seemesh = True)
+nodes , elements , nn = geo.writefiles(ietype , var)
 coords=np.zeros([nn,2])
 SOL = np.zeros([nn])
 """

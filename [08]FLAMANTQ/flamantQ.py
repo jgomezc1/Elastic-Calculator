@@ -18,8 +18,11 @@ Creates mesh files.
 phid = 30.
 phi  = ela.radianes(phid)
 l = np.sqrt(16.0)
-var = geo.wedge(l , phid, 0.1)
-nodes , elements , nn =geo.create_model(var , False)
+ietype = 9
+order  = 2
+var = geo.wedge(l , phid, 0.1 , ietype)
+geo.create_mesh(order , var  , seemesh = True)
+nodes , elements , nn = geo.writefiles(ietype , var)
 coords=np.zeros([nn,2])
 SOL = np.zeros([nn])
 #
@@ -41,5 +44,5 @@ for i in range(0,nn):
 """
 Plot the solution
 """
-plo.plot_SFIELD(SOL, nodes , elements , plt_type ="contourf",  levels = 24 )
+plo.plot_SFIELD(SOL, nodes , elements , 1 , plt_type ="contourf",  levels = 24 )
 #

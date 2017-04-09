@@ -32,7 +32,9 @@ Circle(6) = {4, 3, 2};
 Plane Surface(1) = {1}; 
  
 // For Mesh 4 nodes 
-Recombine Surface {1};			// {Id_Surface} 
+//Recombine Surface {1};			// {Id_Surface} 
  
+// "Structure" mesh 
+Transfinite Surface {1};		// {Id_Surface} 
  
 Physical Surface(2000) = {1}; 

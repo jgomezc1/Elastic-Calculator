@@ -17,8 +17,11 @@ Creates mesh files.
 """
 l = 5.0
 h = 5.0
-var = geo.boussinesq(l, h, 0.25)
-nodes , elements , nn =geo.create_model(var , False )
+ietype = 9
+order  = 2
+var = geo.boussinesq(l, h, 0.25 , ietype)
+geo.create_mesh(order , var  , seemesh = True)
+nodes , elements , nn = geo.writefiles(ietype , var)
 #
 coords=np.zeros([nn,2])
 SOLS = np.zeros([nn])

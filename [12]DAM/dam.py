@@ -16,9 +16,11 @@ import generategeo as geo
 Creates mesh files.
 """
 h = 9.0
-var = geo.dam(h , 0.25)
-ietype = 3
-nodes , elements , nn =geo.create_model(var, ietype , False )
+ietype = 9
+order  = 2
+var = geo.dam(h , 0.25, ietype)
+geo.create_mesh(order , var  , seemesh = True)
+nodes , elements , nn = geo.writefiles(ietype , var)
 plo.viewmesh(nodes , elements , True)
 coords=np.zeros([nn,2])
 Sig=np.zeros([nn , 3])
@@ -40,7 +42,6 @@ for i in range(0,nn):
 """
 Plot the solution
 """
-#plo.plot_stressF(Sig, nodes, elements , 1 , savefigs = True)
 #
 plo.plot_tension(Sig , nodes , elements, 1)
 #
