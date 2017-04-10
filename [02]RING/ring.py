@@ -13,11 +13,32 @@ import generategeo as geo
 from sympy import init_printing
 init_printing()
 
-a = 2.0
-b = 3.0
-c = 0.1
-ietype = 9
-order  = 2
+try:
+    import easygui
+    msg = "Cylinder under internal pressure"
+    title = "Enter the problem parameters"
+    fieldNames = ["Internal radius","External radius","Element size","Element type","Intrpolation order"]
+    fieldValues = []  # we start with blanks for the values
+    fieldValues = easygui.multenterbox(msg,title, fieldNames)
+    
+
+    a = float(fieldValues[0])
+    b = float(fieldValues[1])
+    c = float(fieldValues[2])
+    ietype = int(fieldValues[3])
+    order = int(fieldValues[4])
+except:
+    a1 = raw_input("Internal radius")
+    b1 = raw_input("Eternal radius")
+    c1 = raw_input("Element size")
+    ietype1 = raw_input("Element type")
+    order1 = raw_input("Interpolation order")
+    a = float(a1)
+    b = float(b1)
+    c = float(c1)
+    ietype = int(ietype1)
+    order = int(order1)
+
 var = geo.ring(a , b , c , ietype)
 geo.create_mesh(order , var  , seemesh = True)
 nodes , elements , nn = geo.writefiles(ietype , var)

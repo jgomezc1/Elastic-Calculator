@@ -15,10 +15,29 @@ import generategeo as geo
 """
 Creates mesh files.
 """
-h = 9.0
-ietype = 9
-order  = 2
-var = geo.dam(h , 0.25, ietype)
+try:
+    import easygui
+    msg = "45 degree dam under hydrostatic pressure"
+    title = "Enter the problem parameters"
+    fieldNames = ["Height","Element size","Element type","Intrpolation order"]
+    fieldValues = []  # we start with blanks for the values
+    fieldValues = easygui.multenterbox(msg,title, fieldNames)
+    
+
+    h = float(fieldValues[0])
+    c = float(fieldValues[1])
+    ietype = int(fieldValues[2])
+    order = int(fieldValues[3])
+except:
+    a1 = raw_input("Height")
+    c1 = raw_input("Element size")
+    ietype1 = raw_input("Element type")
+    order1 = raw_input("Interpolation order")
+    h = float(a1)
+    c = float(c1)
+    ietype = int(ietype1)
+    order = int(order1)
+var = geo.dam(h , c , ietype)
 geo.create_mesh(order , var  , seemesh = True)
 nodes , elements , nn = geo.writefiles(ietype , var)
 plo.viewmesh(nodes , elements , True)

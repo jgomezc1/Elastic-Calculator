@@ -30,11 +30,31 @@ init_printing()
 """
 (i)Creates model (Code your own function into the generategeo.py module).
 """
-l = 1.5
-h = 2.0
-c = 0.5
-ietype = 9
-order  = 2
+try:
+    import easygui
+    msg = "Solution plotter template"
+    title = "Enter the problem parameters"
+    fieldNames = ["Length","Width","Element size","Element type","Intrpolation order"]
+    fieldValues = []  # we start with blanks for the values
+    fieldValues = easygui.multenterbox(msg,title, fieldNames)
+    
+
+    l = float(fieldValues[0])
+    h = float(fieldValues[1])
+    c = float(fieldValues[2])
+    ietype = int(fieldValues[3])
+    order = int(fieldValues[4])
+except:
+    a1 = raw_input("Length")
+    b1 = raw_input("Width")
+    c1 = raw_input("Element size")
+    ietype1 = raw_input("Element type")
+    order1 = raw_input("Interpolation order")
+    l = float(a1)
+    h = float(b1)
+    c = float(c1)
+    ietype = int(ietype1)
+    order = int(order1)
 var = geo.mygeom(l, h, c , ietype)
 geo.create_mesh(order , var  , seemesh = True)
 nodes , elements , nn = geo.writefiles(ietype , var)

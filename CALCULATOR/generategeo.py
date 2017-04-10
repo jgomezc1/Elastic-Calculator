@@ -22,7 +22,7 @@ def create_mesh(order , var = '' , seemesh = True):
 def writefiles(ietype , var = ''):
     
     points, cells, point_data, cell_data, field_data = \
-        meshio.read(var +'.msh')
+        meshio.read(var +'.msh')   
     if ietype == 2:
         elements = cells["triangle"]
         els_array = np.zeros([elements.shape[0], 6], dtype=int)
@@ -63,7 +63,12 @@ def ring(r1, r2, c , ietype):
      ietype = 9 (Cuadratic triangle)
      ietype = 2 (Linear triangle)
      """
-     var = raw_input('jobname:--?')
+     try:
+         import easygui
+         var = easygui.enterbox("Enter the job name")
+
+     except:
+         var   = raw_input('Enter the job name: ')
      file_name=open(var +'.geo', 'w')
      file_name.write('%22s \n' % ('// Input .geo for Ring'))
      file_name.write('%21s \n' % ('// author: Juan Gomez'))
@@ -119,7 +124,12 @@ def ring(r1, r2, c , ietype):
 
 
 def mygeom(l, h, c , ietype):
-    var = raw_input('jobname:--?')
+    try:
+        import easygui
+        var = easygui.enterbox("Enter the job name")
+
+    except:
+        var   = raw_input('Enter the job name: ')
     file_name=open(var +'.geo', 'w')
 	
     file_name.write('%25s \n' % ('// Input .geo for Boussinesq'))
@@ -197,7 +207,12 @@ def wedge(l, fi, c , ietype):
      ietype = 9 (Cuadratic triangle)
      ietype = 2 (Linear triangle)
     """
-    var = raw_input('jobname:--?')
+    try:
+        import easygui
+        var = easygui.enterbox("Enter the job name")
+
+    except:
+        var   = raw_input('Enter the job name: ')
     file_name=open(var +'.geo', 'w')
 	
     file_name.write('%23s \n' % ('// Input .geo for wedge'))
@@ -270,7 +285,12 @@ def wedge(l, fi, c , ietype):
 
 #
 def boussinesq(l, h, c , ietype):
-    var = raw_input('jobname:--?')
+    try:
+        import easygui
+        var = easygui.enterbox("Enter the job name")
+
+    except:
+        var   = raw_input('Enter the job name: ')
     file_name=open(var +'.geo', 'w')
 	
     file_name.write('%25s \n' % ('// Input .geo for Boussinesq'))
@@ -339,7 +359,12 @@ def boussinesq(l, h, c , ietype):
     return var
 #
 def beam(l, h, c , ietype):
-    var = raw_input('jobname:--?')
+    try:
+        import easygui
+        var = easygui.enterbox("Enter the job name")
+
+    except:
+        var   = raw_input('Enter the job name: ')
     file_name=open(var +'.geo', 'w')
 	
     file_name.write('%25s \n' % ('// Input .geo for Boussinesq'))
@@ -476,7 +501,12 @@ def quad(l, h, c , ietype):
 
 #
 def canyon(r, l, h, c , ietype):
-    var = raw_input('jobname:--?')
+    try:
+        import easygui
+        var = easygui.enterbox("Enter the job name")
+
+    except:
+        var   = raw_input('Enter the job name: ')
     file_name=open(var +'.geo', 'w')
 	
     file_name.write('%40s \n' % ('// Input .geo for circular canyon domain'))
@@ -630,7 +660,12 @@ def WedgeDifrac(L1, theta, c):
     return var
 
 def dam(h , c , ietype):
-    var = raw_input('jobname:--?')
+    try:
+        import easygui
+        var = easygui.enterbox("Enter the job name")
+
+    except:
+        var   = raw_input('Enter the job name: ')
     file_name=open(var +'.geo', 'w')
 	
     file_name.write('%23s \n' % ('// Input .geo for DAM'))

@@ -15,11 +15,33 @@ import generategeo as geo
 """
 Creates mesh files.
 """
-l = 5.0
-h = 5.0
-ietype = 9
-order  = 2
-var = geo.boussinesq(l, h, 0.25 , ietype)
+try:
+    import easygui
+    msg = "Half-space under point load"
+    title = "Enter the problem parameters"
+    fieldNames = ["Length","Height","Element size","Element type","Intrpolation order"]
+    fieldValues = []  # we start with blanks for the values
+    fieldValues = easygui.multenterbox(msg,title, fieldNames)
+    
+
+    l = float(fieldValues[0])
+    h = float(fieldValues[1])
+    c = float(fieldValues[2])
+    ietype = int(fieldValues[3])
+    order = int(fieldValues[4])
+except:
+    a1 = raw_input("Internal radius")
+    b1 = raw_input("Eternal radius")
+    c1 = raw_input("Element size")
+    ietype1 = raw_input("Element type")
+    order1 = raw_input("Interpolation order")
+    l = float(a1)
+    h = float(b1)
+    c = float(c1)
+    ietype = int(ietype1)
+    order = int(order1)
+
+var = geo.boussinesq(l, h, c , ietype)
 geo.create_mesh(order , var  , seemesh = True)
 nodes , elements , nn = geo.writefiles(ietype , var)
 #

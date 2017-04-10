@@ -15,12 +15,33 @@ import generategeo as geo
 """
 Creates mesh files.
 """
-phid = 40.
+try:
+    import easygui
+    msg = "Wedge under point load"
+    title = "Enter the problem parameters"
+    fieldNames = ["Semi-angle (Degrees)","Length","Element size","Element type","Intrpolation order"]
+    fieldValues = []  
+    fieldValues = easygui.multenterbox(msg,title, fieldNames)
+    
+
+    phid = float(fieldValues[0])
+    l = float(fieldValues[1])
+    c = float(fieldValues[2])
+    ietype = int(fieldValues[3])
+    order = int(fieldValues[4])
+except:
+    a1 = raw_input("Semi-angle")
+    b1 = raw_input("Length")
+    c1 = raw_input("Element size")
+    ietype1 = raw_input("Element type")
+    order1 = raw_input("Interpolation order")
+    phid = float(a1)
+    l = float(b1)
+    c = float(c1)
+    ietype = int(ietype1)
+    order = int(order1)
 phi  = ela.radianes(phid)
-l = np.sqrt(1.0)
-ietype = 9
-order  = 2
-var = geo.wedge(l , phid, 0.1 , ietype)
+var = geo.wedge(l , phid, c , ietype)
 geo.create_mesh(order , var  , seemesh = True)
 nodes , elements , nn = geo.writefiles(ietype , var)
 coords=np.zeros([nn,2])
