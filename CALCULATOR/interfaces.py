@@ -87,7 +87,171 @@ def wedge_prs():
         enu = float(c1)
         emod = float(d1)
         S = float(e1)
-    
-    
-    
+        
     return phid , l , enu , emod , S
+
+
+def beam_prs():
+    
+    try:
+        import easygui
+        msg = "Cantilever beam (Timoshenko Sln)"
+        title = "Enter the problem parameters"
+        fieldNames = ["Length","Height","Inertia","Poissons ratio","Young modulus", "Load"]
+        fieldValues = []  # we start with blanks for the values
+        fieldValues = easygui.multenterbox(msg,title, fieldNames)
+        
+    
+        L  = float(fieldValues[0])
+        h  = float(fieldValues[1])
+        I  = float(fieldValues[2])
+        nu = float(fieldValues[3])
+        E  = float(fieldValues[4])
+        P  = float(fieldValues[5])
+    except:
+        a1 = raw_input("Length")
+        b1 = raw_input("Height")
+        c1 = raw_input("Inertia")
+        d1 = raw_input("Poissons ratio")
+        e1 = raw_input("Youngs modulus")
+        f1 = raw_input("Load")
+        L = float(a1)
+        h = float(b1)
+        I = float(c1)
+        nu = float(d1)
+        E = float(e1)
+        P = float(f1)
+            
+    return L , h , I , nu , E , P
+
+
+def boussi_prs():
+    try:
+        import easygui
+        msg = "Half-space under point load"
+        title = "Enter the problem parameters"
+        fieldNames = ["Length","Height","Point load","Poissons ratio","Youngs modulus"]
+        fieldValues = []  # we start with blanks for the values
+        fieldValues = easygui.multenterbox(msg,title, fieldNames)
+        
+    
+        l  = float(fieldValues[0])
+        h  = float(fieldValues[1])
+        P  = float(fieldValues[2])
+        nu = float(fieldValues[3])
+        E  = float(fieldValues[4])
+    except:
+        a1 = raw_input("Length")
+        b1 = raw_input("Height")
+        c1 = raw_input("Point load")
+        d1 = raw_input("Poissons ratio")
+        e1 = raw_input("Youngs modulus")
+        l  = float(a1)
+        h  = float(b1)
+        P  = float(c1)
+        nu = float(d1)
+        E  = float(e1)
+    
+    return l, h , P, nu , E 
+
+def flamantP_prs():
+    
+    try:
+        import easygui
+        msg = "Wedge under point load"
+        title = "Enter the problem parameters"
+        fieldNames = ["Semi-angle (Degrees)","Length","Point load"]
+        fieldValues = []  
+        fieldValues = easygui.multenterbox(msg,title, fieldNames)
+    
+
+        phid = float(fieldValues[0])
+        l    = float(fieldValues[1])
+        P    = float(fieldValues[2])
+    except:
+        a1 = raw_input("Semi-angle")
+        b1 = raw_input("Length")
+        c1 = raw_input("Point load")
+        phid = float(a1)
+        l    = float(b1)
+        P    = float(c1)
+    
+    
+    return phid , l , P
+
+def flamantM_prs():
+    
+    try:
+        import easygui
+        msg = "Wedge under point load"
+        title = "Enter the problem parameters"
+        fieldNames = ["Semi-angle (Degrees)","Length","Applied moment"]
+        fieldValues = []  
+        fieldValues = easygui.multenterbox(msg,title, fieldNames)
+    
+
+        phid = float(fieldValues[0])
+        l    = float(fieldValues[1])
+        P    = float(fieldValues[2])
+    except:
+        a1 = raw_input("Semi-angle")
+        b1 = raw_input("Length")
+        c1 = raw_input("Applied moment")
+        phid = float(a1)
+        l    = float(b1)
+        P    = float(c1)
+    
+    
+    return phid , l , P
+
+def flamantQ_prs():
+    
+    try:
+        import easygui
+        msg = "Wedge under point load"
+        title = "Enter the problem parameters"
+        fieldNames = ["Semi-angle (Degrees)","Length","Point load"]
+        fieldValues = []  
+        fieldValues = easygui.multenterbox(msg,title, fieldNames)
+    
+
+        phid = float(fieldValues[0])
+        l    = float(fieldValues[1])
+        P    = float(fieldValues[2])
+    except:
+        a1 = raw_input("Semi-angle")
+        b1 = raw_input("Length")
+        c1 = raw_input("Point load")
+        phid = float(a1)
+        l    = float(b1)
+        P    = float(c1)
+    
+    
+    return phid , l , P
+
+def canyon_prs():
+    try:
+        import easygui
+        msg = "Semi-circular canyon under SH waves"
+        title = "Enter the problem parameters"
+        fieldNames = ["Radius","Side length","Height","Number of increments"]
+        fieldValues = []  # we start with blanks for the values
+        fieldValues = easygui.multenterbox(msg,title, fieldNames)
+        
+    
+        r = float(fieldValues[0])
+        l = float(fieldValues[1])
+        h = float(fieldValues[2])
+        Ninc = int(fieldValues[3])
+    except:
+        a1 = raw_input("Radius")
+        b1 = raw_input("Side length")
+        c1 = raw_input("Hight")
+        d1 = raw_input("Number of increments")
+        r = float(a1)
+        l = float(b1)
+        h = float(c1)
+        Ninc = int(d1)    
+    
+    return r , l , h , Ninc
+

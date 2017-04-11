@@ -12,34 +12,12 @@ init_printing()
 import elasticity as ela
 import plotter as plo
 import generategeo as geo
+import interfaces as gui
 """
 Creates mesh files.
 """
-try:
-    import easygui
-    msg = "Wedge under point load"
-    title = "Enter the problem parameters"
-    fieldNames = ["Semi-angle (Degrees)","Length","Element size","Element type","Intrpolation order"]
-    fieldValues = []  
-    fieldValues = easygui.multenterbox(msg,title, fieldNames)
-    
-
-    phid = float(fieldValues[0])
-    l = float(fieldValues[1])
-    c = float(fieldValues[2])
-    ietype = int(fieldValues[3])
-    order = int(fieldValues[4])
-except:
-    a1 = raw_input("Semi-angle")
-    b1 = raw_input("Length")
-    c1 = raw_input("Element size")
-    ietype1 = raw_input("Element type")
-    order1 = raw_input("Interpolation order")
-    phid = float(a1)
-    l = float(b1)
-    c = float(c1)
-    ietype = int(ietype1)
-    order = int(order1)
+c , ietype , order =gui.mesh_gui()
+phid , l , p = gui.flamantP_prs()
 phi  = ela.radianes(phid)
 var = geo.wedge(l , phid, c , ietype)
 geo.create_mesh(order , var  , seemesh = True)

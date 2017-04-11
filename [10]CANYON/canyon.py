@@ -9,42 +9,18 @@ from os import sys
 sys.path.append('../CALCULATOR/')
 import plotter as plo
 import generategeo as geo
+import interfaces as gui
 import elasticity as ela
 from sympy import init_printing
 init_printing()
 """
 Creates model.
 """
-try:
-    import easygui
-    msg = "Semi-circular canyon under SH waves"
-    title = "Enter the problem parameters"
-    fieldNames = ["Radius","Side length","Height","Element size","Element type","Intrpolation order"]
-    fieldValues = []  # we start with blanks for the values
-    fieldValues = easygui.multenterbox(msg,title, fieldNames)
-    
+c , ietype , order =gui.mesh_gui()
+r , l , h , ninc = gui.canyon_prs()
 
-    r = float(fieldValues[0])
-    l = float(fieldValues[1])
-    h = float(fieldValues[2])
-    c = float(fieldValues[3])
-    ietype = int(fieldValues[4])
-    order = int(fieldValues[5])
-except:
-    a1 = raw_input("Radius")
-    b1 = raw_input("Side length")
-    c1 = raw_input("Hight")
-    d1 = raw_input("Element size")
-    ietype1 = raw_input("Element type")
-    order1 = raw_input("Interpolation order")
-    r = float(a1)
-    l = float(b1)
-    h = float(c1)
-    c = float(d1)
-    ietype = int(ietype1)
-    order = int(order1)
 
-ninc = 4097
+#ninc = 4097
 #r = 1.0
 #l = 6.0
 #h = 3.0

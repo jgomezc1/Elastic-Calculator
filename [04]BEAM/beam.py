@@ -12,38 +12,12 @@ init_printing()
 import elasticity as ela
 import plotter as plo
 import generategeo as geo
+import interfaces as gui
 """
 Creates mesh files.
 """
-try:
-    import easygui
-    msg = "Cantilever beam (Timoshenko Sln)"
-    title = "Enter the problem parameters"
-    fieldNames = ["Length","Height","Element size","Element type","Intrpolation order"]
-    fieldValues = []  # we start with blanks for the values
-    fieldValues = easygui.multenterbox(msg,title, fieldNames)
-    
-
-    L = float(fieldValues[0])
-    h = float(fieldValues[1])
-    c = float(fieldValues[2])
-    ietype = int(fieldValues[3])
-    order = int(fieldValues[4])
-except:
-    a1 = raw_input("Length")
-    b1 = raw_input("Height")
-    c1 = raw_input("Element size")
-    ietype1 = raw_input("Element type")
-    order1 = raw_input("Interpolation order")
-    L = float(a1)
-    h = float(b1)
-    c = float(c1)
-    ietype = int(ietype1)
-    order = int(order1)
-#L = 4.0
-#h = 2.0
-#ietype = 9
-#order  = 2
+c , ietype , order =gui.mesh_gui()
+L , h , I , nu , E , P =gui.beam_prs()
 var = geo.beam(L, h, c , ietype)
 geo.create_mesh(order , var  , seemesh = True)
 nodes , elements , nn = geo.writefiles(ietype , var)
@@ -57,10 +31,6 @@ plo.viewmesh(nodes , elements , True)
 """
 Computes the solution
 """
-P = -50.0
-nu = 0.30
-E = 1000.0
-I = 42.67
 for i in range(0,nn):
     x = coords[i,0]
     y = coords[i,1]
