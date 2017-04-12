@@ -16,6 +16,7 @@ init_printing()
 """
 Creates model.
 """
+gui.canion_hlp()
 c , ietype , order =gui.mesh_gui()
 r , l , h , ninc = gui.canyon_prs()
 var = geo.canyon(r, l, h, c , ietype)

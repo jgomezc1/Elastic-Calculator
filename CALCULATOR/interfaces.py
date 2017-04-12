@@ -149,6 +149,18 @@ def beam_prs():
             
     return L , h , I , nu , E , P
 
+def beam_hlp():
+    try:
+        import easygui
+        easygui.msgbox(msg="",
+        title="Cantilever beam under point load (Timoshnko sln)", 
+        ok_button="Continuar",
+        image='viga.gif')
+    except:
+        print ("No easygui module")
+    
+    return
+
 
 def boussi_prs():
     try:
@@ -179,6 +191,19 @@ def boussi_prs():
     
     return l, h , P, nu , E 
 
+def boussi_hlp():
+    try:
+        import easygui
+        easygui.msgbox(msg="",
+        title="Half-space under point loads", 
+        ok_button="Continuar",
+        image='boussi.gif')
+    except:
+        print ("No easygui module")
+    
+    return
+
+
 def flamantP_prs():
     
     try:
@@ -203,6 +228,20 @@ def flamantP_prs():
     
     
     return phid , l , P
+
+def flamantp_hlp():
+    try:
+        import easygui
+        easygui.msgbox(msg="",
+        title="Wedge under point load (Flamant sln)", 
+        ok_button="Continuar",
+        image='flamantP.gif')
+    except:
+        print ("No easygui module")
+    
+    return
+
+
 
 def flamantM_prs():
     
@@ -229,6 +268,20 @@ def flamantM_prs():
     
     return phid , l , P
 
+def flamantM_hlp():
+    try:
+        import easygui
+        easygui.msgbox(msg="",
+        title="Wedge under point moment (Flamant sln)", 
+        ok_button="Continuar",
+        image='flamantM.gif')
+    except:
+        print ("No easygui module")
+    
+    return
+
+
+
 def flamantQ_prs():
     
     try:
@@ -253,6 +306,20 @@ def flamantQ_prs():
     
     
     return phid , l , P
+
+def flamantQ_hlp():
+    try:
+        import easygui
+        easygui.msgbox(msg="",
+        title="Wedge under transverse load (Flamant sln)", 
+        ok_button="Continuar",
+        image='flamantQ.gif')
+    except:
+        print ("No easygui module")
+    
+    return
+
+
 
 def canyon_prs():
     try:
@@ -280,3 +347,14 @@ def canyon_prs():
     
     return r , l , h , Ninc
 
+def canion_hlp():
+    try:
+        import easygui
+        easygui.msgbox(msg="",
+        title="Semi-circular canyon under incident SH waves (TRifunac sln)", 
+        ok_button="Continuar",
+        image='canion.gif')
+    except:
+        print ("No easygui module")
+    
+    return

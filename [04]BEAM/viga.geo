@@ -3,7 +3,7 @@
  
 c =   0.100  ; 		// for size elements 
  
-l=   4.000 ; 
+l=   8.000 ; 
 h=   2.000 ; 
  
 // Define vertex points 

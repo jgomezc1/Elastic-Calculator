@@ -16,6 +16,7 @@ import interfaces as gui
 """
 Creates mesh files.
 """
+gui.beam_hlp()
 c , ietype , order =gui.mesh_gui()
 L , h , I , nu , E , P =gui.beam_prs()
 var = geo.beam(L, h, c , ietype)

@@ -16,6 +16,7 @@ import interfaces as gui
 """
 Creates mesh files.
 """
+gui.flamantp_hlp()
 c , ietype , order =gui.mesh_gui()
 phid , l , p = gui.flamantP_prs()
 phi  = ela.radianes(phid)
