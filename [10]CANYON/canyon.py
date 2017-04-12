@@ -18,15 +18,6 @@ Creates model.
 """
 c , ietype , order =gui.mesh_gui()
 r , l , h , ninc = gui.canyon_prs()
-
-
-#ninc = 4097
-#r = 1.0
-#l = 6.0
-#h = 3.0
-#c = 0.15
-#ietype = 2
-#order  = 1
 var = geo.canyon(r, l, h, c , ietype)
 geo.create_mesh(order , var  , seemesh = True)
 nodes , elements , nn = geo.writefiles(ietype , var)
@@ -49,6 +40,5 @@ for i in range(nn):
         SOL[i,j] = u[j]
 
 # Plot the solution
-
 #plo.plot_SFIELD(SOL[:,  0], nodes, elements , 1 , plt_type="contourf",  levels=12)
 
