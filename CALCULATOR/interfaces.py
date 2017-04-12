@@ -59,6 +59,20 @@ def ring_prs():
     
     return a , b , pa , pb
 
+def ring_hlp():
+    try:
+        import easygui
+        easygui.msgbox(msg="",
+        title="Cylinder under internal and external pressure", 
+        ok_button="Continuar",
+        image='anillo.gif')
+    except:
+        print ("No easygui module")
+    
+    return
+
+
+
 def wedge_prs():
     
     
@@ -90,6 +104,17 @@ def wedge_prs():
         
     return phid , l , enu , emod , S
 
+def wedge_hlp():
+    try:
+        import easygui
+        easygui.msgbox(msg="",
+        title="Self-equilibrated wedge", 
+        ok_button="Continuar",
+        image='cunia.gif')
+    except:
+        print ("No easygui module")
+    
+    return
 
 def beam_prs():
     

@@ -16,6 +16,7 @@ import interfaces as gui
 """
 Define the model and problem parameters
 """
+gui.wedge_hlp()
 c , ietype , order =gui.mesh_gui()
 phid , l , nu , E , S = gui.wedge_prs()
 phi  = ela.radianes(phid)

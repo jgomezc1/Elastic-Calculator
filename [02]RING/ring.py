@@ -16,6 +16,7 @@ init_printing()
 """
 Define the model and problem parameters
 """
+gui.ring_hlp()
 c , ietype , order =gui.mesh_gui()
 a , b , pa , pb =gui.ring_prs()
 var = geo.ring(a , b , c , ietype)
