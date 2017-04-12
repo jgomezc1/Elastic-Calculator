@@ -16,7 +16,7 @@ def mesh_gui():
         import easygui
         msg = "General Discretization Parameters"
         title = "Mesh parameters"
-        fieldNames = ["Element size","Element type","Intrpolation order"]
+        fieldNames = ["Element size","Element type (2: lin.triang.; 3 quad4; 9.quad.triang.)","Intrpolation order"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
     
@@ -234,7 +234,7 @@ def canyon_prs():
         import easygui
         msg = "Semi-circular canyon under SH waves"
         title = "Enter the problem parameters"
-        fieldNames = ["Radius","Side length","Height","Number of increments"]
+        fieldNames = ["Radius (1.0)","Side length(10.0)","Height (10.0)","Number of increments (4097)"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
         
