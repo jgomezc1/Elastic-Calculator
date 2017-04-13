@@ -18,7 +18,7 @@ Creates model.
 """
 gui.canion_hlp()
 c , ietype , order =gui.mesh_gui()
-r , l , h , ninc = gui.canyon_prs()
+r , l , h , ninc , Gamma = gui.canyon_prs()
 var = geo.canyon(r, l, h, c , ietype)
 geo.create_mesh(order , var  , seemesh = True)
 nodes , elements , nn = geo.writefiles(ietype , var)
@@ -36,7 +36,7 @@ Computes the solution
 for i in range(nn):
     x = coords[i,0]
     y = coords[i,1]
-    u = ela.trifunac(x , y )
+    u = ela.trifunac(x , y , Gamma , r )
     for j in range(ninc):
         SOL[i,j] = u[j]
 

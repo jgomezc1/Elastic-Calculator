@@ -291,7 +291,7 @@ def tensor_cart_m(r,teta,f,m,beta):
     sigmaf[1,0]=txyp+txyq+txym    
     return sigmaf   
 #
-def trifunac(x, y):
+def trifunac(x, y , Gamma , a):
     
         ##################### DEFINICIÓN DE LOS VECTORES CON LOS TÉRMINOS DE HANKEL Y BESSEL ######################
         
@@ -311,8 +311,8 @@ def trifunac(x, y):
                 
         #############################################################################################################
     Beta = 1.0 # Velocidad de la onda incidente en el medio
-    Gamma = 0.0 # Ángulo de incidencia de la onda
-    a = 1.0 # Radio del cañón
+#    Gamma = 0.523 # Ángulo de incidencia de la onda
+#    a = 1.0 # Radio del cañón
     
     Tt = 16.0 #Tiempo total que tendrá el pulso
     Tc = 4.0 # Tiempo en el que estará centrado el pulso

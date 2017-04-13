@@ -326,7 +326,7 @@ def canyon_prs():
         import easygui
         msg = "Semi-circular canyon under SH waves"
         title = "Enter the problem parameters"
-        fieldNames = ["Radius (1.0)","Side length(10.0)","Height (10.0)","Number of increments (4097)"]
+        fieldNames = ["Radius (1.0)","Side length(10.0)","Height (10.0)","Number of increments (4097)" , "Angle of incidence (in rads)"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
         
@@ -335,17 +335,20 @@ def canyon_prs():
         l = float(fieldValues[1])
         h = float(fieldValues[2])
         Ninc = int(fieldValues[3])
+        gamma = float(fieldValues[4])
     except:
         a1 = raw_input("Radius")
         b1 = raw_input("Side length")
         c1 = raw_input("Hight")
         d1 = raw_input("Number of increments")
+        e1 = raw_input("Angle of incidence (in rads)")
         r = float(a1)
         l = float(b1)
         h = float(c1)
-        Ninc = int(d1)    
+        Ninc = int(d1)
+        gamma= float(e1)
     
-    return r , l , h , Ninc
+    return r , l , h , Ninc , gamma
 
 def canion_hlp():
     try:
