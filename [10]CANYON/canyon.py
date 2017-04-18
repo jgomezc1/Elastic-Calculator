@@ -40,6 +40,9 @@ for i in range(nn):
     for j in range(ninc):
         SOL[i,j] = u[j]
 
+ne = len(elements)
+plo.vtk_maker_4noded(nodes , elements , SOL , nn , ne , ninc )
+
 # Plot the solution
 #plo.plot_SFIELD(SOL[:,  0], nodes, elements , 1 , plt_type="contourf",  levels=12)
 

@@ -375,6 +375,65 @@ def mohr(sxx , syy , sxy , nfig):
     plt.ylabel(r"$\tau$", size=18)   
 #    plt.show() 
 #
+
+def vtk_maker_4noded(nodes , eles , SOL , nnodes , ne , ninc ):
+    """
+     Author: Juan Fernando Zapata
+     Writes VTK files for visualization with paraview
+    """
+    
+    z = np.zeros((nnodes))
+    y = np.zeros((nnodes))
+    x = np.zeros((nnodes))
+    npore = np.zeros(ne) # npore = número de nodos por elemento
+    np.savetxt('VTK.txt', SOL, fmt='%.4f')
+    SOL = np.loadtxt('VTK.txt')
+    for i in range(ne):
+        npore[i] = int(4) 
+    for j in range(0,ninc, 10):
+        ind = str(j)
+        H =  open('Trifunac'+ ind + '.vtk', 'w')
+        H.write("# vtk DataFile Version 4.1. \n")
+        H.write("Canion de trifunac\n")
+        H.write("ASCII \n")
+        H.write("DATASET UNSTRUCTURED_GRID \n")
+        H.write("POINTS              %i float" %(nnodes))
+        H.write("\n")
+    
+        for i in range(nnodes):
+            H.write(" %f  %f  %f " % (nodes[i,1], nodes[i,2], z[i]))
+            H.write("\n")
+            
+        H.write("\n")
+        H.write("CELLS              %i              %i" %(ne, 5*ne))
+        H.write("\n")
+        
+        for i in range(ne):
+            H.write(" %i  %i  %i  %i  %i " % (npore[i], eles[i,3], eles[i,4], eles[i,5], eles[i,6]))
+            H.write("\n")
+            
+        H.write("\n")
+        H.write("CELL_TYPES %i" %(ne))
+        H.write("\n")
+        
+        for i in range(ne):
+            H.write(" %i " % (eles[i,2]))
+            H.write("\n")
+            
+        H.write("\n")
+        H.write("POINT_DATA              %i" %(nnodes))
+        H.write("\n")
+        H.write("VECTORS DISPLACEMENT float \n")
+        
+        for i in range(nnodes):
+            H.write(" %f  %f  %f " % (x[i], y[i], SOL[i,j]))
+            H.write("\n")
+        
+        H.write("\n")
+    
+    
+    return
+
 #%%
 if __name__ == "__main__":
     import doctest

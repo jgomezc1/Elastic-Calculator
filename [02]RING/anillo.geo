@@ -1,7 +1,7 @@
 // Input .geo for Ring 
 // author: Juan Gomez 
   
-c =   0.100  ; 		// for size elements 
+c =   0.150  ; 		// for size elements 
  
 r1=    2.0000 ; 
 r2=    3.0000 ; 

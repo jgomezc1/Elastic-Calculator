@@ -1,11 +1,11 @@
 // Input .geo for circular canyon domain 
 // author: Juan Gomez 
  
-c =   0.100  ; 		// for size elements 
+c =   0.250  ; 		// for size elements 
  
 r=   1.000 ; 		// radio of the canyon 
-l=  10.000 ; 		 // surface length 
-h=   5.000 ; 		// height of the domain 
+l=   2.500 ; 		 // surface length 
+h=   2.500 ; 		// height of the domain 
  
        // Define points 
  
@@ -32,7 +32,7 @@ Circle(6) = {4, 3, 2};
 Plane Surface(1) = {1}; 
  
 // For Mesh 4 nodes 
-//Recombine Surface {1};			// {Id_Surface} 
+Recombine Surface {1};			// {Id_Surface} 
  
 // "Structure" mesh 
 Transfinite Surface {1};		// {Id_Surface} 
