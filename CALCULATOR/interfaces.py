@@ -361,3 +361,32 @@ def canion_hlp():
         print ("No easygui module")
     
     return
+
+def dam_prs():
+    try:
+        import easygui
+        msg = "45 degree dam under hydrostatic pressure"
+        title = "Problem parameters"
+        fieldNames = ["Height"]
+        fieldValues = []  # we start with blanks for the values
+        fieldValues = easygui.multenterbox(msg,title, fieldNames)
+        H = float(fieldValues[0])        
+    except:
+        a1 = raw_input("Height")
+        H  = float(a1)
+        print ("No easygui module")
+    
+    return H
+
+def dam_hlp():
+    try:
+        import easygui
+        easygui.msgbox(msg="",
+        title="45 degree dam under hydrostatic pressure", 
+        ok_button="Continuar",
+        image='dam.gif')
+    except:
+        print ("No easygui module")
+    
+    return
+

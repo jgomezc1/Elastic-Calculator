@@ -376,7 +376,7 @@ def mohr(sxx , syy , sxy , nfig):
 #    plt.show() 
 #
 
-def vtk_maker_4noded(nodes , eles , SOL , nnodes , ne , ninc ):
+def vtk_maker_4noded(nodes , eles , SOL , nnodes , ne , ninc , vtinc ):
     """
      Author: Juan Fernando Zapata
      Writes VTK files for visualization with paraview
@@ -390,10 +390,10 @@ def vtk_maker_4noded(nodes , eles , SOL , nnodes , ne , ninc ):
     SOL = np.loadtxt('VTK.txt')
     for i in range(ne):
         npore[i] = int(4) 
-    for j in range(0,ninc, 10):
+    for j in range(0, ninc , vtinc):
         ind = str(j)
         H =  open('Trifunac'+ ind + '.vtk', 'w')
-        H.write("# vtk DataFile Version 4.1. \n")
+        H.write("# vtk DataFile Version 3.1 \n")
         H.write("Canion de trifunac\n")
         H.write("ASCII \n")
         H.write("DATASET UNSTRUCTURED_GRID \n")
@@ -417,7 +417,8 @@ def vtk_maker_4noded(nodes , eles , SOL , nnodes , ne , ninc ):
         H.write("\n")
         
         for i in range(ne):
-            H.write(" %i " % (eles[i,2]))
+#            H.write(" %i " % (eles[i,2]))
+            H.write(" %i " % (10))
             H.write("\n")
             
         H.write("\n")
