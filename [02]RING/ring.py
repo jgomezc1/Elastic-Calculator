@@ -20,7 +20,7 @@ gui.ring_hlp()
 c , ietype , order =gui.mesh_gui()
 a , b , pa , pb =gui.ring_prs()
 var = geo.ring(a , b , c , ietype)
-geo.create_mesh(order , var  , seemesh = True)
+geo.create_mesh(order , var  , seemesh = False)
 nodes , elements , nn = geo.writefiles(ietype , var)
 """
 Define solution arrays
