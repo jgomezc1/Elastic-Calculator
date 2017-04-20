@@ -1,10 +1,10 @@
 // Input .geo for Ring 
 // author: Juan Gomez 
   
-c =   0.150  ; 		// for size elements 
+c =   0.100  ; 		// for size elements 
  
-r1=    2.0000 ; 
-r2=    3.0000 ; 
+r1=    1.0000 ; 
+r2=    2.0000 ; 
  
  
 // Define points 
@@ -25,7 +25,7 @@ Line Loop(2) = {2};
 Plane Surface(1) = {1, 2}; 
  
 // For Mesh 4 nodes 
-//Recombine Surface {1};			// {Id_Surface} 
+Recombine Surface {1};			// {Id_Surface} 
  
 // "Structure" mesh 
 Transfinite Surface {1};		// {Id_Surface} 

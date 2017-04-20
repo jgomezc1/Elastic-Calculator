@@ -204,14 +204,10 @@ def flamantM(x , y , m , phi):
 #
 def prering(x , y , a , b , pa , pb ):
     r=(x**2.+y**2.)**0.5
-    k1 = 1.0/((b**2)/(a**2)-1.0)
-    k2 = 1.0/(1.0 - (a**2)/(b**2))
-    f1 = (b**2)/(r**2) - 1.0 
-    f2 = (b**2)/(r**2) + 1.0
-    f3 = (a**2)/(r**2) + 1.0
-    f4 = 1.0 - (a**2)/(r**2)
-    srr = -k1*f1*pa-k2*f4*pb
-    stt =  k1*f2*pa-k2*f3*pb
+    k1 = ((a**2)*(b**2)/(b**2-a**2))*(pb-pa)
+    k2 = (pa*a*a-pb*b*b)/(b**2-a**2)
+    srr =  k1/(r**2)+k2
+    stt = -k1/(r**2)+k2
     sigmar = srr
     sigmat = stt
     return sigmar , sigmat    
