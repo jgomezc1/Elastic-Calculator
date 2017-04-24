@@ -16,10 +16,12 @@ The code is written in Python and it depends on numpy and matplotlib. The Gmesh,
 
 ## Instructions
 
-The code is written in Python 2 dialect (we believe that it will work in Python 3 but we have not tested yet) and it depends on numpy, scipy and sympy. To use it clone the repo with
+The code is written in Python 2 dialect (we believe that it will work in Python 3 but we have not tested yet) and it depends on numpy, scipy and sympy. TTo use it clone the repo with
 
-git clone https://github.com/jgomezc1/Elastic-Calculator
-uncompress the zip folder an run the main file in the Python console of your preference.
+    git clone https://github.com/jgomezc1/FEM_PYTHON.git
+   
+uncompress the zip folder an run the main file in the Python console of your
+preference.
 
 ## License
 
