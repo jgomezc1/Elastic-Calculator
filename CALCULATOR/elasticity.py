@@ -288,6 +288,10 @@ def tensor_cart_m(r,teta,f,m,beta):
     return sigmaf   
 #
 def trifunac(x, y , Gamma , a):
+    """
+     Author: Juan Fernando Zapata
+     Writes VTK files for visualization with paraview
+    """
     
         ##################### DEFINICIÓN DE LOS VECTORES CON LOS TÉRMINOS DE HANKEL Y BESSEL ######################
         
