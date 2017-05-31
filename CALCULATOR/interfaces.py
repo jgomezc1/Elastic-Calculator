@@ -16,7 +16,7 @@ def mesh_gui():
         import easygui
         msg = "General Discretization Parameters"
         title = "Mesh parameters"
-        fieldNames = ["Element size","Element type (2: lin.triang.; 3 quad4; 9.quad.triang.)","Intrpolation order"]
+        fieldNames = ["Element size","Element type (2: lin.triang.; 3 quad4; 9.quad.triang.)","Interpolation order"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
     

@@ -3,8 +3,8 @@
   
 c =   0.100  ; 		// for size elements 
  
-r1=    1.0000 ; 
-r2=    2.0000 ; 
+r1=    2.0000 ; 
+r2=    3.0000 ; 
  
  
 // Define points 

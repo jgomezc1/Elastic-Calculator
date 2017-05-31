@@ -1,7 +1,7 @@
 // Input .geo for circular canyon domain 
 // author: Juan Gomez 
  
-c =   0.150  ; 		// for size elements 
+c =   0.250  ; 		// for size elements 
  
 r=   1.000 ; 		// radio of the canyon 
 l=   5.000 ; 		 // surface length 

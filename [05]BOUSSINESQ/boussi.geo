@@ -1,7 +1,7 @@
 // Input .geo for Boussinesq 
 // author: Juan Gomez 
  
-c =   0.100  ; 		// for size elements 
+c =   0.200  ; 		// for size elements 
  
 l=  10.000 ; 
 h=  10.000 ; 
