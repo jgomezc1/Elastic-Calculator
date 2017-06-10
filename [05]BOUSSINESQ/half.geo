@@ -1,10 +1,10 @@
 // Input .geo for Boussinesq 
 // author: Juan Gomez 
  
-c =   0.010  ; 		// for size elements 
+c =   0.150  ; 		// for size elements 
  
-l=   1.000 ; 
-h=   1.000 ; 
+l=  10.000 ; 
+h=  10.000 ; 
  
 // Define vertex points 
  
@@ -27,7 +27,7 @@ Line Loop(1) = {1, 2, 3, 4, 5};	// {Id_line1,id_line2, ... }
 // surface for mesh 			// {Id_Loop} 
 Plane Surface(1) = {1}; 
  
-//Recombine Surface {1};			// {Id_Surface} 
+Recombine Surface {1};			// {Id_Surface} 
  
 // "Structure" mesh 
 Transfinite Surface {1};		// {Id_Surface} 
