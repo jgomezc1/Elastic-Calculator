@@ -4,8 +4,8 @@
 c =   0.150  ; 		// for size elements 
  
 r=   1.000 ; 		// radio of the canyon 
-l=   5.000 ; 		 // surface length 
-h=   5.000 ; 		// height of the domain 
+l=  10.000 ; 		 // surface length 
+h=  10.000 ; 		// height of the domain 
  
        // Define points 
  
