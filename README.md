@@ -10,9 +10,9 @@ The code is written in Python and it depends on numpy and matplotlib. The Gmesh,
     pip install meshio
 
 ## Authors
-- [Juan Carlos Vergara](https://github.com/jvergar2), PhD Student at Universidad EAFIT.
-- [Nicolás Guarín-Zapata](https://github.com/nicoguaro), PhD Student at Purdue University.
 - [Juan Gomez](http://www.eafit.edu.co/docentes-investigadores/Paginas/juan-gomez.aspx), Professor at Universidad EAFIT.
+- [Nicolás Guarín-Zapata](https://github.com/nicoguaro), Researcher at Universidad EAFIT.
+- [Juan Carlos Vergara](https://github.com/jvergar2), PhD Student at Universidad EAFIT.
 
 ## Instructions
 
