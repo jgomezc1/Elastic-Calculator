@@ -553,3 +553,66 @@ def DifractionSesma(x,y):
     signal = sig.IFtrans(TF , Nt , dt)
     
     return(signal)
+
+
+def single_ray(x, y , Gamma , Beta):
+    """Evaluates a plane wave
+
+    Parameters
+    ----------
+    x : float
+        x-coordinate
+    y : float
+        y-coordinate
+    Gamma: float
+        Angle of incidence
+    Beta: float
+        Velocity of wave propagation
+
+    Returns
+    -------
+    signal : ndarray (float)
+        Array with the time history at the point x-y.
+
+    """
+                    
+####################----Solution parameters-----##########################################################
+
+    Tt = 16.0 
+    Tc = 4.0 
+    fc = 1.0 
+    Nf= 2048
+    Nt= 2*Nf+1
+    dt = Tt/(Nt-1)
+    deta = 2.0/Beta/Tt # Delta de frecuencias
+    neta  = int(4*fc*2/deta) # Número de frecuencias que se evaluaran
+    
+    lieta = deta # #Límite inferior para eta
+    lfeta = deta*neta # Límite superior para x
+    Eta = np.linspace(lieta, lfeta, neta, dtype=float)
+    
+    desplaz = np.zeros(len(Eta), dtype=complex)
+#
+#   Compute the Transfer function
+#            
+    for j in range (0, len(Eta)):        
+        pha_ang = 2.0*np.pi*Eta[j]*(np.sin(Gamma)*x + np.cos(Gamma)*y) 
+        desplaz[j] = np.exp(1j*pha_ang)
+#
+#   Compute convolution and inverse transform.
+#  
+    TF = np.zeros(Nt , dtype=complex)
+    Rick , T= sig.ricker(Nt , Tt , Tc , fc)
+    x , Sas , Saf , nfs = sig.Ftrans(Rick , Nt , dt , 10.0)
+    
+    for i in range(neta):        
+        TF[i+1] = desplaz[i]
+        TF[-1-i] = np.conj(desplaz[i])
+    
+    for i in range(Nt):
+        
+        TF[i] = Saf[i] * TF[i]
+        
+    signal = sig.IFtrans(TF , Nt , dt)
+    
+    return(signal)

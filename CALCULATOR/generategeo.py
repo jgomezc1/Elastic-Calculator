@@ -455,10 +455,10 @@ def quad(l, h, c , ietype):
 	
     file_name.write('%0s \n' % (''))
 	
-    file_name.write('%42s \n' % ('Point(1) = {0, 0 , 0, c};		// {x,y,z, size}'))
-    file_name.write('%26s \n' % ('Point(2) = {l, 0 , 0, c};'))
-    file_name.write('%26s \n' % ('Point(3) = {l, h , 0, c};'))
-    file_name.write('%27s \n' % ('Point(4) = {0, h , 0, c};'))
+    file_name.write('%42s \n' % ('Point(1) = {-h/2 , 0 , 0, c};		// {x,y,z, size}'))
+    file_name.write('%26s \n' % ('Point(2) = {h/2  , 0 , 0, c};'))
+    file_name.write('%26s \n' % ('Point(3) = {h/2  , l , 0, c};'))
+    file_name.write('%27s \n' % ('Point(4) = {-h/2 , l , 0, c};'))
 	
     file_name.write('%0s \n' % (''))	
 

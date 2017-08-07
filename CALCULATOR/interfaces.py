@@ -149,6 +149,40 @@ def beam_prs():
             
     return L , h , I , nu , E , P
 
+def quad_prs():
+    
+    try:
+        import easygui
+        msg = "Square Box"
+        title = "Enter the problem parameters"
+        fieldNames = ["Length" , "Height" , "Total increments (4097)" , "Angle of incidence" , "Wave propagation" ]
+        fieldValues = []  # we start with blanks for the values
+        fieldValues = easygui.multenterbox(msg , title , fieldNames)
+        
+    
+        L  = float(fieldValues[0])
+        h  = float(fieldValues[1])
+        ninc  = int(fieldValues[2])
+        gamma = float(fieldValues[3])
+        beta = float(fieldValues[4])
+        
+        
+    except:
+        a1 = raw_input("Length")
+        b1 = raw_input("Height")
+        c1 = raw_input("Total increments")
+        d1 = raw_input("Angle of incidence")
+        e1 = raw_input("Wave velocity")
+        L = float(a1)
+        h = float(b1)
+        ninc = int(c1)
+        gamma = float(d1)
+        beta = float(e1)
+            
+    return L , h , ninc , gamma , beta
+
+
+
 def beam_hlp():
     try:
         import easygui
@@ -385,6 +419,18 @@ def dam_hlp():
         title="45 degree dam under hydrostatic pressure", 
         ok_button="Continuar",
         image='dam.gif')
+    except:
+        print ("No easygui module")
+    
+    return
+
+def box_hlp():
+    try:
+        import easygui
+        easygui.msgbox(msg="",
+        title="Semi-circular canyon under incident SH waves (TRifunac sln)", 
+        ok_button="Continuar",
+        image='box.gif')
     except:
         print ("No easygui module")
     
