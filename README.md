@@ -1,8 +1,12 @@
 # Elastic-Calculator
-
 ![Scattering of SH waves.](./docs/img/trifunac.gif)
 
-The Elastic-Calculator allows the visualization of existing elasticity theory solutions using finite element meshes.  In order to visualize a solution the user must execute the script for the problem of interest selected from the provided data-base. Once the problem parameters are defined the script will create a finite element mesh using [Gmsh](http://gmsh.info/) (the free three-dimensional finite element mesh generator) in the background. The closed-form solution, coded in the python module elasticity.py, is then evaluated at the nodes of the finite element assemblage. In order to visualize the solution the mesh is triangulated by the post-processing module plotter.py. The triangulation is directly used by Python to produce an intrpolated image using the nodal field. Solutions different to the ones contained in the repo can also be implemented by adding the specific function to the module elasticity.py.
+The Repo contains tools to visualized closed-form solutions over 2D-computational domains discretized into finite elements.
+
+## Features
+The Elastic-Calculator allows the visualization of closed-form solutions (e.g., elasticity theory solutions) using finite element meshes. It has been  created for academic purposes and it is part of the teaching material developed for the courses IC0602 Introduction to the Finite Element Methods and IC0285 Computational Modeling at Universidad EAFIT.
+
+In order to visualize a solution (available within this Repo) the user must execute the script for the problem of interest selected from the provided data-base. Once the problem parameters are defined the script will create a finite element mesh using [Gmsh](http://gmsh.info/) (the free three-dimensional finite element mesh generator) in the background. The closed-form solution, coded in the python module elasticity.py, is then evaluated at the nodes of the finite element assemblage. In order to provide images of the solution the mesh is triangulated by the post-processing module plotter.py. The triangulation is directly used by Python to produce an intrpolated image using the nodal field. User provided solutions, different from the ones contained in the repo can also be implemented by adding the specific function to the module elasticity.py.
 
 The repo contains several folders, each one associated to a different solution, and the folder named CALCULATOR containing the modules elasticity.py, plotter.py, generatego.py (with templates for different pre-defined shapes).
 
