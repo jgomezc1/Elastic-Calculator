@@ -579,13 +579,15 @@ def single_ray(x, y , Gamma , Beta):
 ####################----Solution parameters-----##########################################################
 
     Tt = 16.0 
-    Tc = 4.0 
+    Tc = 15.0 
     fc = 1.0 
-    Nf= 2048
-    Nt= 2*Nf+1
+    Nf= 64
+    Nt = 2*Nf+1
     dt = Tt/(Nt-1)
-    deta = 2.0/Beta/Tt # Delta de frecuencias
-    neta  = int(4*fc*2/deta) # Número de frecuencias que se evaluaran
+    deta = 1/(Nt*dt)
+#    deta = 2.0/Beta/Tt # Delta de frecuencias
+#    neta  = int(4*fc*2/deta) # Número de frecuencias que se evaluaran
+    neta = Nf
     
     lieta = deta # #Límite inferior para eta
     lfeta = deta*neta # Límite superior para x
