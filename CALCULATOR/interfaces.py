@@ -155,16 +155,19 @@ def quad_prs():
         import easygui
         msg = "Square Box"
         title = "Enter the problem parameters"
-        fieldNames = ["Length" , "Height" , "Total increments (4097)" , "Angle of incidence" , "Wave propagation" ]
+        fieldNames = ["Length" , "Height" , "Total increments (4097)" , "Angle of incidence" , "Wave propagation velocity" , "Total time" , "Central time" , "Central frequency" ]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg , title , fieldNames)
         
     
-        L  = float(fieldValues[0])
-        h  = float(fieldValues[1])
+        L     = float(fieldValues[0])
+        h     = float(fieldValues[1])
         ninc  = int(fieldValues[2])
         gamma = float(fieldValues[3])
-        beta = float(fieldValues[4])
+        beta  = float(fieldValues[4])
+        Tt    = float(fieldValues[5])
+        Tc    = float(fieldValues[6])
+        fc    = float(fieldValues[7])
         
         
     except:
@@ -173,13 +176,19 @@ def quad_prs():
         c1 = raw_input("Total increments")
         d1 = raw_input("Angle of incidence")
         e1 = raw_input("Wave velocity")
+        f1 = raw_input("Total time")
+        g1 = raw_input("Central time")
+        h1 = raw_input("Central frequency")
         L = float(a1)
         h = float(b1)
         ninc = int(c1)
         gamma = float(d1)
         beta = float(e1)
+        Tt = float(f1)
+        Tc = float(g1)
+        fc = float(h1)
             
-    return L , h , ninc , gamma , beta
+    return L , h , ninc , gamma , beta , Tt , Tc , fc
 
 
 
@@ -428,7 +437,7 @@ def box_hlp():
     try:
         import easygui
         easygui.msgbox(msg="",
-        title="Semi-circular canyon under incident SH waves (TRifunac sln)", 
+        title="Rectangular domain for wave propagation analysis", 
         ok_button="Continuar",
         image='box.gif')
     except:

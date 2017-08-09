@@ -392,7 +392,7 @@ def vtk_maker_4noded(nodes , eles , SOL , nnodes , ne , ninc , vtinc ):
         npore[i] = int(4) 
     for j in range(0, ninc , vtinc):
         ind = str(j)
-        H =  open('Trifunac'+ ind + '.vtk', 'w')
+        H =  open('wave'+ ind + '.vtk', 'w')
         H.write("# vtk DataFile Version 3.1 \n")
         H.write("Canion de trifunac\n")
         H.write("ASCII \n")

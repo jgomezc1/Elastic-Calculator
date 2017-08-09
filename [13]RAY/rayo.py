@@ -18,7 +18,7 @@ Creates model.
 """
 gui.box_hlp()
 c , ietype , order =gui.mesh_gui()
-l , h , ninc , Gamma , beta = gui.quad_prs()
+l , h , ninc , Gamma , beta , Tt , Tc , fc = gui.quad_prs()
 var = geo.quad(l, h, c , ietype)
 geo.create_mesh(order , var  , seemesh = True)
 nodes , elements , nn = geo.writefiles(ietype , var)
@@ -36,13 +36,9 @@ Computes the solution
 for i in range(nn):
     x = coords[i,0]
     y = coords[i,1]
-    u = ela.single_ray(x , y , Gamma , beta )
+    u = ela.single_ray(x , y , Gamma , beta , ninc , Tt , Tc , fc )
     for j in range(ninc):
         SOL[i,j] = u[j]
 
 ne = len(elements)
 plo.vtk_maker_4noded(nodes , elements , SOL , nn , ne , ninc , 1 )
-
-# Use the line below to plot the solution in the terminal
-#plo.plot_SFIELD(SOL[:,  0], nodes, elements , 1 , plt_type="contourf",  levels=12)
-

@@ -555,7 +555,7 @@ def DifractionSesma(x,y):
     return(signal)
 
 
-def single_ray(x, y , Gamma , Beta):
+def single_ray(x, y , Gamma , Beta , Nt , Tt , Tc , fc):
     """Evaluates a plane wave
 
     Parameters
@@ -574,37 +574,35 @@ def single_ray(x, y , Gamma , Beta):
     signal : ndarray (float)
         Array with the time history at the point x-y.
 
-    """
-                    
-####################----Solution parameters-----##########################################################
-
-    Tt = 16.0 
-    Tc = 15.0 
-    fc = 1.0 
-    Nf= 64
-    Nt = 2*Nf+1
-    dt = Tt/(Nt-1)
-    deta = 1/(Nt*dt)
-#    deta = 2.0/Beta/Tt # Delta de frecuencias
-#    neta  = int(4*fc*2/deta) # Número de frecuencias que se evaluaran
+    """                    
+#
+# Pulse parameters
+#
+    dt = 1.0/(8.0*fc)
+    Nf =int((Nt - 1)/2) 
+    df = 1/(Nt*dt)
     neta = Nf
     
-    lieta = deta # #Límite inferior para eta
-    lfeta = deta*neta # Límite superior para x
-    Eta = np.linspace(lieta, lfeta, neta, dtype=float)
+    lif = df # #Límite inferior para eta
+    lff = df*neta # Límite superior para x
+    fre = np.linspace(lif, lff, neta, dtype=float)
     
-    desplaz = np.zeros(len(Eta), dtype=complex)
+    desplaz = np.zeros(len(fre), dtype=complex)
+#
+    nx = np.sin(Gamma)
+    ny =-np.cos(Gamma) 
 #
 #   Compute the Transfer function
 #            
-    for j in range (0, len(Eta)):        
-        pha_ang = 2.0*np.pi*Eta[j]*(np.sin(Gamma)*x + np.cos(Gamma)*y) 
+    for j in range (0, len(fre)):
+        kapa = 2.0*np.pi*fre[j]/Beta        
+        pha_ang = - kapa*(nx*x + ny*y) 
         desplaz[j] = np.exp(1j*pha_ang)
 #
 #   Compute convolution and inverse transform.
 #  
     TF = np.zeros(Nt , dtype=complex)
-    Rick , T= sig.ricker(Nt , Tt , Tc , fc)
+    Rick , T = sig.ricker(Nt , Tt , Tc , fc)
     x , Sas , Saf , nfs = sig.Ftrans(Rick , Nt , dt , 10.0)
     
     for i in range(neta):        
