@@ -93,3 +93,43 @@ def ricker(nt, Tt, tc, fc):
 	
      return (Rick, T)
 #
+def grafsignalG(A , var1 , label1 , units , ymin , ymax , dt , Ngra):
+    """
+     Plots the generalized time signal A[ndats] into Ngra
+     The plot is also stored into var.pdf
+    """
+    ndats  = len(A)
+    x=np.zeros([ndats], dtype=float)
+    x=np.arange(0,ndats*dt,dt)
+    var1=var1 + '.pdf'
+    plt.figure(Ngra)
+    plt.plot(x,A)
+    plt.grid()
+    plt.xlabel('Tiempo (s)' + str(Ngra))
+    plt.ylabel(label1 + ' ' + units)
+#    plt.ylim(ymin,ymax)
+    plt.savefig(var1)
+#
+    return
+
+def grafFourier(Sas , x , nfr , var, xmin , xmax , ymin , ymax , Nfig):
+    """
+     Plots the Fourier spectral amplitude Sas into Nfig.
+     Sas : Spectrum
+     x   : frecuency
+     xmin,xmax,ymin,ymax
+    """
+#    path = '../RESULTADOS/'
+    plt.figure(Nfig)
+    plt.plot(x,Sas)
+    var1= var + '.pdf'
+    plt.grid()  
+    plt.xlabel('Frecuencia (Hz)')
+    plt.ylabel('Amplitud')
+    #plt.legend(['Fourier spectral amplitude'])
+#    plt.xlim(xmin,xmax); plt.ylim(ymin,ymax)
+#    plt.xscale('log')
+#    plt.yscale('log')
+    plt.savefig(var1)
+#
+    return
