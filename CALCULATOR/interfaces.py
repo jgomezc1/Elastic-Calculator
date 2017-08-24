@@ -190,6 +190,36 @@ def quad_prs():
             
     return L , h , ninc , gamma , beta , Tt , Tc , fc
 
+def membrane_prs():
+    
+    try:
+        import easygui
+        msg = "Square Box"
+        title = "Enter the problem parameters"
+        fieldNames = ["Length" , "Height" , "Number of increments" , "Total time"]
+        fieldValues = []  # we start with blanks for the values
+        fieldValues = easygui.multenterbox(msg , title , fieldNames)
+        
+    
+        L     = float(fieldValues[0])
+        h     = float(fieldValues[1])
+        ninc  = int(fieldValues[2])
+        Tt    = float(fieldValues[3])
+        
+        
+    except:
+        a1 = raw_input("Length")
+        b1 = raw_input("Height")
+        c1 = raw_input("Total increments")
+        f1 = raw_input("Total time")
+        L = float(a1)
+        h = float(b1)
+        ninc = int(c1)
+        Tt = float(f1)
+            
+    return L , h , ninc , Tt
+
+
 
 
 def beam_hlp():

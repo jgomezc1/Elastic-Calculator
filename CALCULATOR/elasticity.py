@@ -8,6 +8,8 @@ Juan Gomez
 import scipy.special as sci
 import numpy as np
 import signals as sig
+import sympy as sym
+import plotter as plo
 #
 def myfunction(x,y,p):
     """
@@ -600,7 +602,8 @@ def single_ray(x, y , Gamma , Beta , Nt , Tt , Tc , fc):
         kapa = 2.0*np.pi*fre[j]/Beta        
         pha_ang_1 = - kapa*(nx1*x + ny1*y) 
         pha_ang_2 = - kapa*(nx2*x + ny2*y)
-        desplaz[j] = np.exp(1j*pha_ang_1) + np.exp(1j*pha_ang_2)
+#        desplaz[j] = np.exp(1j*pha_ang_1) + np.exp(1j*pha_ang_2)
+        desplaz[j] = np.exp(1j*pha_ang_1)
 #   
 #   Compute convolution and inverse transform.
 #     
@@ -619,3 +622,118 @@ def single_ray(x, y , Gamma , Beta , Nt , Tt , Tc , fc):
     signal = sig.IFtrans(TF , Nt , dt)
     
     return(signal)
+
+def membrane(x, y , a , b , N , M , Ninc , dt ):
+    """Evaluates a plane wave
+
+    Parameters
+    ----------
+    x : float
+        x-coordinate
+    y : float
+        y-coordinate
+    a : float
+        Membrane width
+    b : float
+        Membrane height
+    N : Intger
+        Number of terms in the x direction
+    M : Integer
+        Number of terms in the y direction
+    Ninc: Integer
+          Number of increments
+    dt: Float
+        Tim step
+
+    Returns
+    -------
+    w : ndarray (float)
+        Array with the time history at the point x-y.
+
+    """
+
+    w = np.zeros(Ninc, dtype = float)
+    t = 0
+    for i in range ( Ninc):
+        t = t + i*dt
+        w[0] = 0.0
+        for n in range(1 , N):
+            Rmn = Rterm(x , a , b , n , t , M)
+            wtemp = Rmn*np.sin(n*np.pi*y/b)
+            w[i] = w[i-1] + wtemp
+                
+    return(w)
+
+
+def modeplotter(x, y , a , b , n , m , Ninc , dt ):
+    """Evaluates a plane wave
+
+    Parameters
+    ----------
+    x : float
+        x-coordinate
+    y : float
+        y-coordinate
+    Gamma: float
+        Angle of incidence
+    Beta: float
+        Velocity of wave propagation
+
+    Returns
+    -------
+    signal : ndarray (float)
+        Array with the time history at the point x-y.
+
+    """
+#                   
+#   Pulse parameters
+#
+    w = np.zeros(Ninc + 1, dtype = float)
+    c =20.0
+    t = 0
+    Hmn = Iterm(a , b , n , m)
+    Omn = np.pi*c*np.sqrt(((m**2)/(a**2) + (n**2)/(b**2)))
+    for i in range (Ninc):
+        t = t + i*dt        
+        Rtemp = Hmn*np.sin(m*np.pi*x/a)*np.cos(Omn*t)
+        wtemp  = Rtemp*np.sin(n*np.pi*y/b)
+        w[i+1] = w[i] + wtemp
+                
+    return(w)
+
+
+def Rterm(x,  a , b , n , t , M):
+#
+    c =20.0
+    Rmn = 0
+    for m in range(1 , M):
+        Hmn = Iterm(a , b , n , m)
+        Omn = np.pi*c*np.sqrt(((m**2)/(a**2) + (n**2)/(b**2)))
+        Rtemp = Hmn*np.sin(m*np.pi*x/a)*np.cos(Omn*t)
+        Rmn = Rmn + Rtemp
+    return(Rmn)
+
+def Iterm( a , b , n , m):
+    """Evaluates a plane wave
+
+    """
+    if (n % 2 == 0) or (m % 2 == 0):
+        Hmn = 0
+    else:
+        Hmn =(0.64/m**3/n**3/np.pi**6) 
+
+#    x  = sym.symbols('x')
+#    y  = sym.symbols('y' )
+#    Hmn = sym.integrate((0.02*(x-x**2)*(y-2*y**2)) * sym.sin(m*sym.pi*x/a) * sym.sin(n*sym.pi*y/b), (x, 0 , b), (y , 0, a))
+
+#    Hmn = 10
+    
+    
+    
+    return(Hmn)
+
+
+
+
+
+
