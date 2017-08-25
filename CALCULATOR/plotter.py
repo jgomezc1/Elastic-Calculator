@@ -386,7 +386,7 @@ def vtk_maker_4noded(nodes , eles , SOL , nnodes , ne , ninc , vtinc ):
     y = np.zeros((nnodes))
     x = np.zeros((nnodes))
     npore = np.zeros(ne) # npore = número de nodos por elemento
-    np.savetxt('VTK.txt', SOL, fmt='%.4f')
+    np.savetxt('VTK.txt', SOL, fmt='%f')
     SOL = np.loadtxt('VTK.txt')
     for i in range(ne):
         npore[i] = int(4) 

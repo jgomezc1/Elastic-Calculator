@@ -11,8 +11,8 @@ import plotter as plo
 import generategeo as geo
 import interfaces as gui
 import elasticity as ela
-from sympy import init_printing
-init_printing()
+
+
 """
 Creates model.
 """

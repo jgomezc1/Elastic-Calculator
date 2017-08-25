@@ -10,14 +10,16 @@ import numpy as np
 import signals as sig
 import sympy as sym
 import plotter as plo
-#
+
+
 def myfunction(x,y,p):
     """
     Template for user defined elasticity solution.
     """
     ux=(x**2.+y**2.)**p
     return ux
-#
+
+
 def cunia(x,y,phi,l,nu,E,S):
     """Computes the solution for self-equilibated wedge
        at a point (x , y)
@@ -55,7 +57,8 @@ def cunia(x,y,phi,l,nu,E,S):
     sigx = S*(np.cos(phi)/np.sin(phi))
     sigy =-S*(np.sin(phi)/np.cos(phi))
     return ux , uy , sigx , sigy 
-#
+
+
 def beam(x, y, nu, P, E, I, L, h):
     """Compute the solution for a cantilever beam
 
@@ -119,7 +122,8 @@ def beam(x, y, nu, P, E, I, L, h):
     gammaxy = B3*(y**2 - c**2)
 
     return u, v, exx, eyy, gammaxy        
-#
+
+
 def boussipol(x,y,p):
     r=(x**2.+y**2.)**0.5
     teta = np.arcsin(y/r)
@@ -144,7 +148,8 @@ def boussicar(x,y,p):
         Syy = (-2*p/Pi/r)*(np.cos(teta)*(np.sin(teta)**2))
         Txy = (-2*p/Pi/r)*(np.sin(teta)*(np.cos(teta)**2)) 
     return Sxx , Syy , Txy    
-#
+
+
 def boussidis(x , y , p , E , enu , d):
     r=(x**2.+y**2.)**0.5
     teta = np.arcsin(y/r)
@@ -171,7 +176,8 @@ def flamantP(x , y , p , phi):
         srp = (-2*p/f3)*(np.cos(teta)/r)
     sigma = srp
     return sigma    
-#
+
+
 def flamantQ(x , y , q , phi):
     r=(x**2.+y**2.)**0.5
     teta = np.arcsin(y/r)
@@ -185,7 +191,8 @@ def flamantQ(x , y , q , phi):
         srp = (-2*q/f3)*(np.sin(teta)/r)
     sigma = srp
     return sigma    
-#
+
+
 def flamantM(x , y , m , phi):
     r=(x**2.+y**2.)**0.5
     teta = np.arcsin(y/r)
@@ -203,7 +210,8 @@ def flamantM(x , y , m , phi):
     sigmar = srp
     taor   = trp
     return sigmar , taor        
-#
+
+
 def prering(x , y , a , b , pa , pb ):
     r=(x**2.+y**2.)**0.5
     k1 = ((a**2)*(b**2)/(b**2-a**2))*(pb-pa)
@@ -213,15 +221,18 @@ def prering(x , y , a , b , pa , pb ):
     sigmar = srr
     sigmat = stt
     return sigmar , sigmat    
-#
+
+
 def radianes(ang_grad):
     ang_rad=ang_grad*np.pi/180    
     return ang_rad      
-    
+
+  
 def grados(ang_rad):
     ang_grad=ang_rad*180/np.pi    
     return ang_grad      
-#    
+
+  
 def tensor_polar(r,teta,f,beta,alfa):
     
     alfa=radianes(alfa) # para semi-espacio
@@ -234,6 +245,7 @@ def tensor_polar(r,teta,f,beta,alfa):
     sigma=np.zeros((2,2))
     sigma[0,0]=srp+srq
     return sigma  
+   
     
 def tensor_cart(r,teta,f,beta):
     #################################### variables de entrada ####################
@@ -262,6 +274,7 @@ def tensor_cart(r,teta,f,beta):
     sigmaf[0,1]=txyp+txyq
     sigmaf[1,0]=txyp+txyq    
     return sigmaf       
+  
     
 def tensor_cart_m(r,teta,f,m,beta):    
     teta=radianes(teta) # paso teta a radianes
@@ -288,7 +301,8 @@ def tensor_cart_m(r,teta,f,m,beta):
     sigmaf[0,1]=txyp+txyq+txym
     sigmaf[1,0]=txyp+txyq+txym    
     return sigmaf   
-#
+
+
 def trifunac(x, y , Gamma , a):
     """
      Author: Juan Fernando Zapata
@@ -416,6 +430,7 @@ def trifunac(x, y , Gamma , a):
     signal = sig.IFtrans(TF , Nt , dt)
     
     return(signal)
+
 
 def dam(x,y,gamma):
     """Computes the solution for self-equilibated wedge
@@ -622,6 +637,7 @@ def single_ray(x, y , Gamma , Beta , Nt , Tt , Tc , fc):
     signal = sig.IFtrans(TF , Nt , dt)
     
     return(signal)
+
 
 def membrane(x, y , a , b , N , M , Ninc , dt ):
     """Evaluates a plane wave
