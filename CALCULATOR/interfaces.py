@@ -196,7 +196,7 @@ def membrane_prs():
         import easygui
         msg = "Square Box"
         title = "Enter the problem parameters"
-        fieldNames = ["Length" , "Height" , "Number of increments" , "Total time"]
+        fieldNames = ["b" , "a" , "Number of increments" , "Total time"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg , title , fieldNames)
         
@@ -208,8 +208,8 @@ def membrane_prs():
         
         
     except:
-        a1 = raw_input("Length")
-        b1 = raw_input("Height")
+        a1 = raw_input("b")
+        b1 = raw_input("a")
         c1 = raw_input("Total increments")
         f1 = raw_input("Total time")
         L = float(a1)

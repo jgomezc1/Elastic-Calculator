@@ -729,7 +729,73 @@ def dam(h , c , ietype):
     return var
 
 
+def memb(l, h, c , ietype):
+    var = raw_input('jobname:--?')
+    file_name=open(var +'.geo', 'w')
+	
+    file_name.write('%25s \n' % ('// Input .geo for quad domain'))
+	
+    file_name.write('%21s \n' % ('// author: Juan Gomez'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%4s %6.3f %25s \n' % ('c = ', c, '; 		// for size elements'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%3s %6.3f %1s \n' % ('l= ', l, ';'))
+	
+    file_name.write('%3s %6.3f %1s \n' % ('h= ', h, ';'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%23s \n' % ('// Define vertex points'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%42s \n' % ('Point(1) = {0 , 0 , 0, c};		// {x,y,z, size}'))
+    file_name.write('%26s \n' % ('Point(2) = {h  , 0 , 0, c};'))
+    file_name.write('%26s \n' % ('Point(3) = {h  , l , 0, c};'))
+    file_name.write('%27s \n' % ('Point(4) = {0 , l , 0, c};'))
+	
+    file_name.write('%0s \n' % (''))	
 
+    file_name.write('%24s \n' % ('// Define boundary lines'))
+    file_name.write('%48s \n' % ('Line(1) = {1, 2};		// {Initial_point, end_point}'))
+    file_name.write('%17s \n' % ('Line(2) = {2, 3};'))
+    file_name.write('%17s \n' % ('Line(3) = {3, 4};'))
+    file_name.write('%17s \n' % ('Line(4) = {4, 1};'))
+	
+    file_name.write('%0s \n' % (''))
+
+    file_name.write('%14s \n' % ('// Joint Lines'))
+    file_name.write('%60s \n' % ('Line Loop(1) = {1, 2, 3, 4};	// {Id_line1,id_line2, ... }'))
+	
+    file_name.write('%0s \n' % (''))
+
+    file_name.write('%35s \n' % ('// surface for mesh 			// {Id_Loop}'))
+    file_name.write('%23s \n' % ('Plane Surface(1) = {1};'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%19s \n' % ('// For Mesh 4 nodes'))
+    if ietype == 3:
+        file_name.write('%40s \n' % ('Recombine Surface {1};			// {Id_Surface}'))
+    else:
+        file_name.write('%40s \n' % ('//Recombine Surface {1};			// {Id_Surface}'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%19s \n' % ('// "Structure" mesh'))
+    file_name.write('%41s \n' % ('Transfinite Surface {1};		// {Id_Surface}'))
+	
+    file_name.write('%0s \n' % (''))
+
+    file_name.write('%28s \n' % ('Physical Surface(100) = {1};'))
+	
+    file_name.close()
+    
+    return var
 
 
 

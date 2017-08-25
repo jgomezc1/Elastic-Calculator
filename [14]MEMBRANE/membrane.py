@@ -18,11 +18,11 @@ Creates model.
 """
 gui.box_hlp()
 c , ietype , order =gui.mesh_gui()
-l , h , ninc , Tt = gui.membrane_prs()
+b , a , ninc , Tt = gui.membrane_prs()
 dt = Tt / ninc
 N = 10
 M = 10
-var = geo.quad(l, h, c , ietype)
+var = geo.memb(b , a , c , ietype)
 geo.create_mesh(order , var  , seemesh = True)
 nodes , elements , nn = geo.writefiles(ietype , var)
 plo.viewmesh(nodes , elements , True)
@@ -37,9 +37,10 @@ coords[:,1]=nodes[:,2]
 Computes the solution
 """
 for i in range(nn):
-    x = coords[i,0] + h/2.0
+    x = coords[i,0]
     y = coords[i,1]
-    u = ela.membrane(x, y , l , h , N , M , ninc , dt )
+    u = ela.membrane(x, y , b , a , N , M , ninc , dt )
+#    u = ela. membraneP(x, y , N , M , ninc , dt )
     for j in range(ninc):
         SOL[i,j] = u[j]
 

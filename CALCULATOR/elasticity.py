@@ -623,7 +623,7 @@ def single_ray(x, y , Gamma , Beta , Nt , Tt , Tc , fc):
     
     return(signal)
 
-def membrane(x, y , a , b , N , M , Ninc , dt ):
+def membrane(x, y , b , a , N , M , Ninc , dt ):
     """Evaluates a plane wave
 
     Parameters
@@ -660,7 +660,7 @@ def membrane(x, y , a , b , N , M , Ninc , dt ):
         for n in range(1 , N):
             Rmn = Rterm(x , a , b , n , t , M)
             wtemp = Rmn*np.sin(n*np.pi*y/b)
-            w[i] = w[i-1] + wtemp
+            w[i] = w[i-1] + 1.0e5*wtemp
                 
     return(w)
 
@@ -733,7 +733,48 @@ def Iterm( a , b , n , m):
     return(Hmn)
 
 
+def membraneP(x, y , N , M , Ninc , dt ):
+    """Evaluates a plane wave
 
+    Parameters
+    ----------
+    x : float
+        x-coordinate
+    y : float
+        y-coordinate
+    a : float
+        Membrane width
+    b : float
+        Membrane height
+    N : Intger
+        Number of terms in the x direction
+    M : Integer
+        Number of terms in the y direction
+    Ninc: Integer
+          Number of increments
+    dt: Float
+        Tim step
+
+    Returns
+    -------
+    w : ndarray (float)
+        Array with the time history at the point x-y.
+
+    """
+
+    w = np.zeros(Ninc, dtype = float)
+    t = 0
+    for i in range ( Ninc):
+        t = t + i*dt
+        w[0] = 0.0
+        for n in range(1 , N , 2):
+            for m in range(1 , M , 2):
+                fmn = 1.0/((m**3)*(n**3))
+                Omn = 20*np.pi*np.sqrt((m**2) + (4*n**2))
+                wtemp = fmn*np.sin(m*np.pi*x)*np.sin(2*n*np.pi*y)*np.cos(Omn*t)
+                w[i] = w[i-1] + 1.0e5*wtemp
+                
+    return(w)
 
 
 
