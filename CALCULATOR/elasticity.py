@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 """
 Elasticity solutions calculator
-Juan Vergara
 Juan Gomez
+Nicolas Guarin
 """
-#
+from __future__ import division
 import scipy.special as sci
 import numpy as np
+from numpy import sin, cos, sqrt, pi
 import signals as sig
 import sympy as sym
 import plotter as plo
-
 
 def myfunction(x,y,p):
     """
@@ -638,12 +638,8 @@ def single_ray(x, y , Gamma , Beta , Nt , Tt , Tc , fc):
     
     return(signal)
 
-<<<<<<< HEAD
-def membrane(x, y , b , a , N , M , Ninc , dt ):
-=======
+def membrane(x, y , a , b , beta , N , M , Ninc , dt ):
 
-def membrane(x, y , a , b , N , M , Ninc , dt ):
->>>>>>> 08c2c52f637d5b125d70bd18e46b262904ff6191
     """Evaluates a plane wave
 
     Parameters
@@ -673,19 +669,20 @@ def membrane(x, y , a , b , N , M , Ninc , dt ):
     """
 
     w = np.zeros(Ninc, dtype = float)
-    t = 0
+    c = beta
     for i in range ( Ninc):
-        t = t + i*dt
-        w[0] = 0.0
+        wtemp = 0.0
+        t = i*dt
         for n in range(1 , N):
-            Rmn = Rterm(x , a , b , n , t , M)
-            wtemp = Rmn*np.sin(n*np.pi*y/b)
-            w[i] = w[i-1] + 1.0e5*wtemp
-                
+            for m in range(1 , M):
+                k = sqrt((m**2)/(a**2) + (n**2)/(b**2))
+                Hmn = Iterm(a , b , n , m)
+                wtemp = wtemp + Hmn*sin(m*pi*x/a)*sin(n*pi*y/b)*cos(pi*k*c*t)
+        w[i] = wtemp
     return(w)
 
 
-def modeplotter(x, y , a , b , n , m , Ninc , dt ):
+def modeplotter(x, y , a , b  , beta , n , m , Ninc , dt ):
     """Evaluates a plane wave
 
     Parameters
@@ -705,33 +702,17 @@ def modeplotter(x, y , a , b , n , m , Ninc , dt ):
         Array with the time history at the point x-y.
 
     """
-#                   
-#   Pulse parameters
-#
-    w = np.zeros(Ninc + 1, dtype = float)
-    c =20.0
-    t = 0
-    Hmn = Iterm(a , b , n , m)
-    Omn = np.pi*c*np.sqrt(((m**2)/(a**2) + (n**2)/(b**2)))
+
+    w = np.zeros(Ninc, dtype = float)
+    c =beta
     for i in range (Ninc):
-        t = t + i*dt        
-        Rtemp = Hmn*np.sin(m*np.pi*x/a)*np.cos(Omn*t)
-        wtemp  = Rtemp*np.sin(n*np.pi*y/b)
-        w[i+1] = w[i] + wtemp
+        t = i*dt 
+        k = sqrt((m**2)/(a**2) + (n**2)/(b**2))
+        w[i] = sin(m*pi*x/a)*sin(n*pi*y/b)*cos(pi*k*c*t)
+        
                 
     return(w)
 
-
-def Rterm(x,  a , b , n , t , M):
-#
-    c =20.0
-    Rmn = 0
-    for m in range(1 , M):
-        Hmn = Iterm(a , b , n , m)
-        Omn = np.pi*c*np.sqrt(((m**2)/(a**2) + (n**2)/(b**2)))
-        Rtemp = Hmn*np.sin(m*np.pi*x/a)*np.cos(Omn*t)
-        Rmn = Rmn + Rtemp
-    return(Rmn)
 
 def Iterm( a , b , n , m):
     """Evaluates a plane wave
@@ -740,7 +721,8 @@ def Iterm( a , b , n , m):
     if (n % 2 == 0) or (m % 2 == 0):
         Hmn = 0
     else:
-        Hmn =(0.64/m**3/n**3/np.pi**6) 
+        Hmn =0.64/((m**3)*(n**3)*(pi**6))
+    return Hmn
 
 #    x  = sym.symbols('x')
 #    y  = sym.symbols('y' )
@@ -750,7 +732,7 @@ def Iterm( a , b , n , m):
     
     
     
-    return(Hmn)
+#    return(Hmn)
 
 
 def membraneP(x, y , N , M , Ninc , dt ):
@@ -785,14 +767,14 @@ def membraneP(x, y , N , M , Ninc , dt ):
     w = np.zeros(Ninc, dtype = float)
     t = 0
     for i in range ( Ninc):
-        t = t + i*dt
+        t = i*dt
         w[0] = 0.0
         for n in range(1 , N , 2):
             for m in range(1 , M , 2):
                 fmn = 1.0/((m**3)*(n**3))
                 Omn = 20*np.pi*np.sqrt((m**2) + (4*n**2))
                 wtemp = fmn*np.sin(m*np.pi*x)*np.sin(2*n*np.pi*y)*np.cos(Omn*t)
-                w[i] = w[i-1] + 1.0e5*wtemp
+                w[i] = w[i-1] + wtemp
                 
     return(w)
 

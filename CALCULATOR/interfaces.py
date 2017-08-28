@@ -196,29 +196,69 @@ def membrane_prs():
         import easygui
         msg = "Square Box"
         title = "Enter the problem parameters"
-        fieldNames = ["b" , "a" , "Number of increments" , "Total time"]
+        fieldNames = ["b" , "a" , "Material velocity" , "Number of increments" , "Total time"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg , title , fieldNames)
         
     
         L     = float(fieldValues[0])
         h     = float(fieldValues[1])
-        ninc  = int(fieldValues[2])
-        Tt    = float(fieldValues[3])
+        beta  = float(fieldValues[2]) 
+        ninc  = int(fieldValues[3])
+        Tt    = float(fieldValues[4])
         
         
     except:
         a1 = raw_input("b")
         b1 = raw_input("a")
+        d1 = raw_input("Beta")
         c1 = raw_input("Total increments")
         f1 = raw_input("Total time")
         L = float(a1)
         h = float(b1)
+        beta = float(d1)
         ninc = int(c1)
         Tt = float(f1)
             
-    return L , h , ninc , Tt
+    return L , h , beta , ninc , Tt
 
+def modal_prs():
+    
+    try:
+        import easygui
+        msg = "Square Box"
+        title = "Enter the problem parameters"
+        fieldNames = ["b" , "a" , "Material velocity" , "x-mode" , "y-mode" , "Number of increments" , "Total time"]
+        fieldValues = []  # we start with blanks for the values
+        fieldValues = easygui.multenterbox(msg , title , fieldNames)
+        
+    
+        L     = float(fieldValues[0])
+        h     = float(fieldValues[1])
+        beta  = float(fieldValues[2])
+        m  = int(fieldValues[3])
+        n  = int(fieldValues[4])
+        ninc  = int(fieldValues[5])
+        Tt    = float(fieldValues[6])
+        
+        
+    except:
+        a1 = raw_input("b")
+        b1 = raw_input("a")
+        d1 = raw_input("Beta")
+        e1 = raw_input("x-mode m")
+        h1 = raw_input("y-mode n")
+        c1 = raw_input("Total increments")
+        f1 = raw_input("Total time")
+        L = float(a1)
+        h = float(b1)
+        beta = float(d1)
+        m = int(e1)
+        n = int(h1)
+        ninc = int(c1)
+        Tt = float(f1)
+            
+    return L , h , beta , m , n , ninc , Tt
 
 
 

@@ -727,7 +727,7 @@ def dam(h , c , ietype):
     file_name.close()
 	
     return var
-<<<<<<< HEAD
+
 
 
 def memb(l, h, c , ietype):
@@ -842,5 +842,4 @@ def memb(l, h, c , ietype):
 
 
 
-=======
->>>>>>> 08c2c52f637d5b125d70bd18e46b262904ff6191
+

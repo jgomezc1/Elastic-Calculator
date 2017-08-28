@@ -4,6 +4,7 @@ Created on Wed Nov 11 12:36:56 2015
 
 @author: eafit
 """
+from __future__ import division
 import numpy as np
 from os import sys
 sys.path.append('../CALCULATOR/')
@@ -18,7 +19,7 @@ Creates model.
 """
 gui.box_hlp()
 c , ietype , order =gui.mesh_gui()
-b , a , ninc , Tt = gui.membrane_prs()
+b , a , beta , ninc , Tt = gui.membrane_prs()
 dt = Tt / ninc
 N = 10
 M = 10
@@ -39,8 +40,7 @@ Computes the solution
 for i in range(nn):
     x = coords[i,0]
     y = coords[i,1]
-    u = ela.membrane(x, y , b , a , N , M , ninc , dt )
-#    u = ela. membraneP(x, y , N , M , ninc , dt )
+    u = ela.membrane(x, y , a , b , beta , N , M , ninc , dt )
     for j in range(ninc):
         SOL[i,j] = u[j]
 
