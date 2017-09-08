@@ -16,7 +16,7 @@ In summary the program requires the following modules:
 
 1. plotter.py    : This is the plotter perse.
 2. elasticity.py : Module that contains the elasticity solution at a given point (x , y).
-3. generatego.py : Module to create nodes.txt and eles.txt files using external meshing tools (GMESH and mesher.for)
+3. generategeo.py : Module to create nodes.txt and eles.txt files using external meshing tools (GMESH and mesher.for)
 ---------------------------------------------------------------------------------------------------------
 """
 import numpy as np
@@ -80,3 +80,15 @@ for i in range(0,nn):
 """
 plo.plot_SFIELD(SOL, nodes , elements, 1 , plt_type ="contourf", levels = 12 )
 #
+
+
+
+
+
+
+
+
+
+
+
+
