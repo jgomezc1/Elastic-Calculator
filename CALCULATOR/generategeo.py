@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Mesh generation subroutines
-Juan Vergara
-Juan Gomez
 """
+from __future__ import division, print_function
 from os import sys
 import numpy as np
 import meshio
@@ -12,20 +11,39 @@ import yaml
 sys.path.append('../CALCULATOR/')
 
 
-def create_mesh(order, var='', seemesh=True):
+def create_mesh(order, fname=''):
+    """Create a mesh file using Gmsh
+
+    Parameters
+    ----------
+    order : int
+        Order of the finite elements.
+    var : string
+        Name of the .geo file.
+    seemesh : Boolean
+        Right now, it does nothing.
+
+    Returns
+    -------
+    file_creation : Boolean
+        ``True`` if the mesh file was created.
+
+    """
     orden = str(order)
-    exit_status = os.system ("gmsh {}.geo -2 -order {}".format(var, orden))
+    path = os.path.dirname(__file__)
+    exit_status = os.system("gmsh {}.geo -2 -order {}".format(fname,
+                            orden))
     if exit_status != 256:
-        path = os.path.dirname(__file__)
         config_file =  open("{}/config.yml".format(path))
         config_data = yaml.load(config_file)
         gmsh_path = config_data["gmsh_path"]
-        os.system ("{}/gmsh {}.geo -2 -order {}".format(gmsh_path,
-                                                        var, orden))
-    return
+        os.system("{}/gmsh {}.geo -2 -order {}".format(
+                gmsh_path, fname, orden))
+    file_creation = os.path.isfile("{}.msh".format(fname))
+    return file_creation
 
 
-def writefiles(ietype , var = ''):
+def writefiles(ietype, var=''):
 
     points, cells, point_data, cell_data, field_data = \
         meshio.read(var +'.msh')
@@ -57,7 +75,7 @@ def writefiles(ietype , var = ''):
     elements     = np.loadtxt('eles.txt')
     nn =len(nodes[:,0])
 
-    return nodes , elements , nn
+    return nodes, elements, nn
 
 
 def ring(r1, r2, c, ietype):

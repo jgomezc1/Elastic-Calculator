@@ -1,10 +1,9 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Mon Apr 10 12:10:08 2017
-
-@author: casierraa
+Graphical elements
 """
+from __future__ import division, print_function
 from os import sys
 sys.path.append('../CALCULATOR/')
 from sympy import init_printing
@@ -19,7 +18,7 @@ def mesh_gui():
         fieldNames = ["Element size","Element type (2: lin.triang.; 3 quad4; 9.quad.triang.)","Interpolation order"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
-    
+
         c = float(fieldValues[0])
         ietype = int(fieldValues[1])
         order = int(fieldValues[2])
@@ -30,7 +29,7 @@ def mesh_gui():
         c = float(c1)
         ietype = int(ietype1)
         order = int(order1)
-    
+
     return c, ietype , order
 
 def ring_prs():
@@ -41,7 +40,7 @@ def ring_prs():
         fieldNames = ["Internal radius","External radius","Internal pressure","External pressure"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
-    
+
 
         a = float(fieldValues[0])
         b = float(fieldValues[1])
@@ -56,35 +55,35 @@ def ring_prs():
         b  = float(b1)
         pa = float(c1)
         pb = float(d1)
-    
+
     return a , b , pa , pb
 
 def ring_hlp():
     try:
         import easygui
         easygui.msgbox(msg="",
-        title="Cylinder under internal and external pressure", 
+        title="Cylinder under internal and external pressure",
         ok_button="Continuar",
         image='anillo.gif')
     except:
         print ("No easygui module")
-    
+
     return
 
 
 
 def wedge_prs():
-    
-    
+
+
     try:
         import easygui
         msg = "Self equilibrated wedge"
         title = "Enter the problem parameters"
         fieldNames = ["Semi-angle (Degrees)","Length", "Poissons ratio" , "Youngs modulus" , "External shear"]
-        fieldValues = []  
+        fieldValues = []
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
-        
-    
+
+
         phid = float(fieldValues[0])
         l = float(fieldValues[1])
         enu = float(fieldValues[2])
@@ -101,23 +100,23 @@ def wedge_prs():
         enu = float(c1)
         emod = float(d1)
         S = float(e1)
-        
+
     return phid , l , enu , emod , S
 
 def wedge_hlp():
     try:
         import easygui
         easygui.msgbox(msg="",
-        title="Self-equilibrated wedge", 
+        title="Self-equilibrated wedge",
         ok_button="Continuar",
         image='cunia.gif')
     except:
         print ("No easygui module")
-    
+
     return
 
 def beam_prs():
-    
+
     try:
         import easygui
         msg = "Cantilever beam (Timoshenko Sln)"
@@ -125,8 +124,8 @@ def beam_prs():
         fieldNames = ["Length","Height","Inertia","Poissons ratio","Young modulus", "Load"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
-        
-    
+
+
         L  = float(fieldValues[0])
         h  = float(fieldValues[1])
         I  = float(fieldValues[2])
@@ -146,11 +145,11 @@ def beam_prs():
         nu = float(d1)
         E = float(e1)
         P = float(f1)
-            
+
     return L , h , I , nu , E , P
 
 def quad_prs():
-    
+
     try:
         import easygui
         msg = "Square Box"
@@ -158,8 +157,8 @@ def quad_prs():
         fieldNames = ["Length" , "Height" , "Total increments (4097)" , "Angle of incidence" , "Wave propagation velocity" , "Total time" , "Central time" , "Central frequency" ]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg , title , fieldNames)
-        
-    
+
+
         L     = float(fieldValues[0])
         h     = float(fieldValues[1])
         ninc  = int(fieldValues[2])
@@ -168,8 +167,8 @@ def quad_prs():
         Tt    = float(fieldValues[5])
         Tc    = float(fieldValues[6])
         fc    = float(fieldValues[7])
-        
-        
+
+
     except:
         a1 = raw_input("Length")
         b1 = raw_input("Height")
@@ -187,11 +186,11 @@ def quad_prs():
         Tt = float(f1)
         Tc = float(g1)
         fc = float(h1)
-            
+
     return L , h , ninc , gamma , beta , Tt , Tc , fc
 
 def membrane_prs():
-    
+
     try:
         import easygui
         msg = "Square Box"
@@ -199,15 +198,15 @@ def membrane_prs():
         fieldNames = ["b" , "a" , "Material velocity" , "Number of increments" , "Total time"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg , title , fieldNames)
-        
-    
+
+
         L     = float(fieldValues[0])
         h     = float(fieldValues[1])
-        beta  = float(fieldValues[2]) 
+        beta  = float(fieldValues[2])
         ninc  = int(fieldValues[3])
         Tt    = float(fieldValues[4])
-        
-        
+
+
     except:
         a1 = raw_input("b")
         b1 = raw_input("a")
@@ -219,11 +218,11 @@ def membrane_prs():
         beta = float(d1)
         ninc = int(c1)
         Tt = float(f1)
-            
+
     return L , h , beta , ninc , Tt
 
 def modal_prs():
-    
+
     try:
         import easygui
         msg = "Square Box"
@@ -231,8 +230,8 @@ def modal_prs():
         fieldNames = ["b" , "a" , "Material velocity" , "x-mode" , "y-mode" , "Number of increments" , "Total time"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg , title , fieldNames)
-        
-    
+
+
         L     = float(fieldValues[0])
         h     = float(fieldValues[1])
         beta  = float(fieldValues[2])
@@ -240,8 +239,8 @@ def modal_prs():
         n  = int(fieldValues[4])
         ninc  = int(fieldValues[5])
         Tt    = float(fieldValues[6])
-        
-        
+
+
     except:
         a1 = raw_input("b")
         b1 = raw_input("a")
@@ -257,7 +256,7 @@ def modal_prs():
         n = int(h1)
         ninc = int(c1)
         Tt = float(f1)
-            
+
     return L , h , beta , m , n , ninc , Tt
 
 
@@ -266,12 +265,12 @@ def beam_hlp():
     try:
         import easygui
         easygui.msgbox(msg="",
-        title="Cantilever beam under point load (Timoshnko sln)", 
+        title="Cantilever beam under point load (Timoshnko sln)",
         ok_button="Continuar",
         image='viga.gif')
     except:
         print ("No easygui module")
-    
+
     return
 
 
@@ -283,8 +282,8 @@ def boussi_prs():
         fieldNames = ["Length","Height","Point load","Poissons ratio","Youngs modulus"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
-        
-    
+
+
         l  = float(fieldValues[0])
         h  = float(fieldValues[1])
         P  = float(fieldValues[2])
@@ -301,32 +300,32 @@ def boussi_prs():
         P  = float(c1)
         nu = float(d1)
         E  = float(e1)
-    
-    return l, h , P, nu , E 
+
+    return l, h , P, nu , E
 
 def boussi_hlp():
     try:
         import easygui
         easygui.msgbox(msg="",
-        title="Half-space under point loads", 
+        title="Half-space under point loads",
         ok_button="Continuar",
         image='boussi.gif')
     except:
         print ("No easygui module")
-    
+
     return
 
 
 def flamantP_prs():
-    
+
     try:
         import easygui
         msg = "Wedge under point load"
         title = "Enter the problem parameters"
         fieldNames = ["Semi-angle (Degrees)","Length","Point load"]
-        fieldValues = []  
+        fieldValues = []
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
-    
+
 
         phid = float(fieldValues[0])
         l    = float(fieldValues[1])
@@ -338,34 +337,34 @@ def flamantP_prs():
         phid = float(a1)
         l    = float(b1)
         P    = float(c1)
-    
-    
+
+
     return phid , l , P
 
 def flamantp_hlp():
     try:
         import easygui
         easygui.msgbox(msg="",
-        title="Wedge under point load (Flamant sln)", 
+        title="Wedge under point load (Flamant sln)",
         ok_button="Continuar",
         image='flamantP.gif')
     except:
         print ("No easygui module")
-    
+
     return
 
 
 
 def flamantM_prs():
-    
+
     try:
         import easygui
         msg = "Wedge under point load"
         title = "Enter the problem parameters"
         fieldNames = ["Semi-angle (Degrees)","Length","Applied moment"]
-        fieldValues = []  
+        fieldValues = []
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
-    
+
 
         phid = float(fieldValues[0])
         l    = float(fieldValues[1])
@@ -377,34 +376,34 @@ def flamantM_prs():
         phid = float(a1)
         l    = float(b1)
         P    = float(c1)
-    
-    
+
+
     return phid , l , P
 
 def flamantM_hlp():
     try:
         import easygui
         easygui.msgbox(msg="",
-        title="Wedge under point moment (Flamant sln)", 
+        title="Wedge under point moment (Flamant sln)",
         ok_button="Continuar",
         image='flamantM.gif')
     except:
         print ("No easygui module")
-    
+
     return
 
 
 
 def flamantQ_prs():
-    
+
     try:
         import easygui
         msg = "Wedge under point load"
         title = "Enter the problem parameters"
         fieldNames = ["Semi-angle (Degrees)","Length","Point load"]
-        fieldValues = []  
+        fieldValues = []
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
-    
+
 
         phid = float(fieldValues[0])
         l    = float(fieldValues[1])
@@ -416,20 +415,20 @@ def flamantQ_prs():
         phid = float(a1)
         l    = float(b1)
         P    = float(c1)
-    
-    
+
+
     return phid , l , P
 
 def flamantQ_hlp():
     try:
         import easygui
         easygui.msgbox(msg="",
-        title="Wedge under transverse load (Flamant sln)", 
+        title="Wedge under transverse load (Flamant sln)",
         ok_button="Continuar",
         image='flamantQ.gif')
     except:
         print ("No easygui module")
-    
+
     return
 
 
@@ -442,8 +441,8 @@ def canyon_prs():
         fieldNames = ["Radius (1.0)","Side length(10.0)","Height (10.0)","Number of increments (4097)" , "Angle of incidence (in rads)"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
-        
-    
+
+
         r = float(fieldValues[0])
         l = float(fieldValues[1])
         h = float(fieldValues[2])
@@ -460,19 +459,19 @@ def canyon_prs():
         h = float(c1)
         Ninc = int(d1)
         gamma= float(e1)
-    
+
     return r , l , h , Ninc , gamma
 
 def canion_hlp():
     try:
         import easygui
         easygui.msgbox(msg="",
-        title="Semi-circular canyon under incident SH waves (TRifunac sln)", 
+        title="Semi-circular canyon under incident SH waves (TRifunac sln)",
         ok_button="Continuar",
         image='canion.gif')
     except:
         print ("No easygui module")
-    
+
     return
 
 def dam_prs():
@@ -483,35 +482,35 @@ def dam_prs():
         fieldNames = ["Height"]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg,title, fieldNames)
-        H = float(fieldValues[0])        
+        H = float(fieldValues[0])
     except:
         a1 = raw_input("Height")
         H  = float(a1)
         print ("No easygui module")
-    
+
     return H
 
 def dam_hlp():
     try:
         import easygui
         easygui.msgbox(msg="",
-        title="45 degree dam under hydrostatic pressure", 
+        title="45 degree dam under hydrostatic pressure",
         ok_button="Continuar",
         image='dam.gif')
     except:
         print ("No easygui module")
-    
+
     return
 
 def box_hlp():
     try:
         import easygui
         easygui.msgbox(msg="",
-        title="Rectangular domain for wave propagation analysis", 
+        title="Rectangular domain for wave propagation analysis",
         ok_button="Continuar",
         image='box.gif')
     except:
         print ("No easygui module")
-    
+
     return
 

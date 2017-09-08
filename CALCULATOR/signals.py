@@ -1,52 +1,50 @@
 """
-@author: 
+Description missing.
 """
-from __future__ import division
+from __future__ import division, print_function
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import butter, lfilter
-from scipy.signal import freqz
-#
-def Ftrans(datos , ndats , dt , fs):
+
+
+def Ftrans(datos, ndats, dt, fs):
     """
-     Computes the Fourier spectra of datos[] and
-     returns the result in SaS after smoothing by the
-     smootinh factor fs.
+    Compute the Fourier spectra of datos[] and
+    returns the result in SaS after smoothing by the
+    smootinh factor fs.
     """
-    nfr=int(ndats/2)
-    df=1.0/(ndats*dt)
-    x=np.zeros([nfr-1], dtype=float)
-    x=np.arange(df,nfr*df,df)
-    A   = np.zeros([ndats],dtype=float)
-    Aa  = np.zeros([ndats],dtype=float) 
-    A=np.fft.fft(datos)
-    Aa=np.abs(A)
-    """
-    Smooth the spectrum.
-    """
+    nfr = int(ndats/2)
+    df = 1.0/(ndats*dt)
+    x = np.arange(df,nfr*df, df)
+    A = np.fft.fft(datos)
+    Aa = np.abs(A)
+
+    # Smooth the spectrum.
     Sa = Aa[1:nfr]
     Samag = smooth(Sa , x , fs)
     nfs = nfr-1
-#
     return x, Samag , A , nfs
-#
+
+
 def IFtrans(datos , ndats , dt):
-#
-# Intgrates an acceleration history into a velocity history
-# proceeding in the frequency domain.
-#
-	B=np.fft.ifft(datos)
-#
-	return np.real(B) 
-#    
-#
-def smooth(Sa, Freq , fftfs):
-#
-    #  **** Input :
-    #  Sa: Original spectrum
-    #  Freq: Frequency
-    #  fftfs: Smoothing factor
-#
+    """
+    Integrate an acceleration history into a velocity history
+    proceeding in the frequency domain.
+    """
+    B = np.fft.ifft(datos)
+    return np.real(B)
+
+
+def smooth(Sa, Freq, fftfs):
+    """
+    Parameters
+    ----------
+    Sa : ndarray
+        Original spectrum.
+    Freq : float
+        Frequency.
+    fftfs : float
+        Smoothing factor.
+    """
     Sas  = np.zeros([len(Sa)],dtype=float)
     fia = 1
     fma = 1
@@ -56,7 +54,7 @@ def smooth(Sa, Freq , fftfs):
     fsexpm = 2**( pot)
     Sas[0] = Sa[0]
     NNfft = len(Sa)
-    for i in range(1,NNfft):
+    for i in range(1, NNfft):
     # #    for i=2:NNfft
         fi = int((i + 1) * fsexpi)
         fm = int((i + 1) * fsexpm)
@@ -77,23 +75,17 @@ def smooth(Sa, Freq , fftfs):
         fia = fi
         fma = fm
         Sas[i]=np.sqrt(suma/Nf)
-#
     return (Sas)
-#
+
+
 def ricker(nt, Tt, tc, fc):
-	
-     Rick=np.zeros(nt)
-     T=np.zeros(nt)
-     dt=Tt/(nt-1)
-	
-     for i in range(nt):
-         tao=np.pi*fc*(dt*i-tc)
-         Rick[i]=(2.*tao**2-1.)*np.exp(-tao**2)    
-         T[i]= i*dt
-	
-     return (Rick, T)
-#
-def grafsignalG(A , var1 , label1 , units , ymin , ymax , dt , Ngra):
+     time = np.linspace(0, Tt, nt)
+     tau = np.pi*fc*(time - tc)
+     Rick = (2.0*tau**2 - 1.0) * np.exp(-tau**2)
+     return Rick, time
+
+
+def grafsignalG(A, var1, label1, units, ymin, ymax, dt, Ngra):
     """
      Plots the generalized time signal A[ndats] into Ngra
      The plot is also stored into var.pdf
@@ -123,7 +115,7 @@ def grafFourier(Sas , x , nfr , var, xmin , xmax , ymin , ymax , Nfig):
     plt.figure(Nfig)
     plt.plot(x,Sas)
     var1= var + '.pdf'
-    plt.grid()  
+    plt.grid()
     plt.xlabel('Frecuencia (Hz)')
     plt.ylabel('Amplitud')
     #plt.legend(['Fourier spectral amplitude'])
