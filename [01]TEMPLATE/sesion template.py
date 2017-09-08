@@ -75,7 +75,7 @@ for i in range(0,nn):
     y = coords[i,1]
     uu =ela.myfunction(x,y,par1)
     SOL[i] = uu
-"""
+"""10
 (iii) Plot the solution using the appropriate function from plotter.py
 """
 plo.plot_SFIELD(SOL, nodes , elements, 1 , plt_type ="contourf", levels = 12 )

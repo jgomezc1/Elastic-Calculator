@@ -14,8 +14,9 @@ sys.path.append('../CALCULATOR/')
 
 def create_mesh(order , var = '' , seemesh = True):
     orden = str(order)
-    os.system ('/Applications/Gmsh.app/Contents/MacOS/gmsh' + ' ' + var + '.geo -2 -order'+ ' ' + orden)
-    
+#    os.system ('/Applications/Gmsh.app/Contents/MacOS/gmsh' + ' ' + var + '.geo -2 -order'+ ' ' + orden)
+    path = open('.config')
+    os.system (path + ' ' + var + '.geo -2 -order'+ ' ' + orden)
     return
 
 #
