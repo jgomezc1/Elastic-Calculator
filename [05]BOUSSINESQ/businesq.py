@@ -20,7 +20,7 @@ gui.boussi_hlp()
 c , ietype , order =gui.mesh_gui()
 l, h , P, nu , E  = gui.boussi_prs()
 var = geo.boussinesq(l, h, c , ietype)
-geo.create_mesh(order , var  , seemesh = True)
+geo.create_mesh(order , var  )
 nodes , elements , nn = geo.writefiles(ietype , var)
 #
 coords=np.zeros([nn,2])

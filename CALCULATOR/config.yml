@@ -1,2 +1,2 @@
 # Path for Gmsh executable
-gmsh_path: /home/nguarinz/Software/gmsh-3.0.4-Linux/bin
+gmsh_path: /Applications/Gmsh.app/Contents/MacOS

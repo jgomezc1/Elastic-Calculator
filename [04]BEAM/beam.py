@@ -20,7 +20,7 @@ gui.beam_hlp()
 c , ietype , order =gui.mesh_gui()
 L , h , I , nu , E , P =gui.beam_prs()
 var = geo.beam(L, h, c , ietype)
-geo.create_mesh(order , var  , seemesh = True)
+geo.create_mesh(order , var )
 nodes , elements , nn = geo.writefiles(ietype , var)
 #
 coords=np.zeros([nn,2])

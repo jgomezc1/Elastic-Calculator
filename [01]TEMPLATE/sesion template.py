@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
+10# -*- coding: utf-8 -*-
 """
 Authors:
-Juan Vergara.
-Nicolas Guarin.
 Juan Gomez.
+Nicolas Guarin.
 Template for the elasticity solutions plotter. A user defined solution can be coded in 3 steps:
 (i)   Define the model using basic shapes from the geometry generator modulde (generategeo.py) or
       create a new domain (see mygeom). In any case the model is represented by the nodes.txt and
@@ -56,7 +55,7 @@ except:
     ietype = int(ietype1)
     order = int(order1)
 var = geo.mygeom(l, h, c , ietype)
-geo.create_mesh(order , var  , seemesh = True)
+geo.create_mesh(order , var )
 nodes , elements , nn = geo.writefiles(ietype , var)
 """
 Define solution arrays
@@ -75,7 +74,7 @@ for i in range(0,nn):
     y = coords[i,1]
     uu =ela.myfunction(x,y,par1)
     SOL[i] = uu
-"""10
+"""
 (iii) Plot the solution using the appropriate function from plotter.py
 """
 plo.plot_SFIELD(SOL, nodes , elements, 1 , plt_type ="contourf", levels = 12 )

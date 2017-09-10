@@ -20,7 +20,7 @@ gui.box_hlp()
 c , ietype , order =gui.mesh_gui()
 l , h , ninc , Gamma , beta , Tt , Tc , fc = gui.quad_prs()
 var = geo.quad(l, h, c , ietype)
-geo.create_mesh(order , var  , seemesh = True)
+geo.create_mesh(order , var  )
 nodes , elements , nn = geo.writefiles(ietype , var)
 plo.viewmesh(nodes , elements , True)
 """

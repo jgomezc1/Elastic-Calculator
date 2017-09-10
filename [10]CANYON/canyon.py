@@ -20,7 +20,7 @@ gui.canion_hlp()
 c , ietype , order =gui.mesh_gui()
 r , l , h , ninc , Gamma = gui.canyon_prs()
 var = geo.canyon(r, l, h, c , ietype)
-geo.create_mesh(order , var  , seemesh = True)
+geo.create_mesh(order , var )
 nodes , elements , nn = geo.writefiles(ietype , var)
 plo.viewmesh(nodes , elements , True)
 """

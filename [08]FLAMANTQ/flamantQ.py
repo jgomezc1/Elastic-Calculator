@@ -21,7 +21,7 @@ phid , l , q = gui.flamantQ_prs()
 
 phi  = ela.radianes(phid)
 var = geo.wedge(l , phid, c , ietype)
-geo.create_mesh(order , var  , seemesh = True)
+geo.create_mesh(order , var )
 nodes , elements , nn = geo.writefiles(ietype , var)
 coords=np.zeros([nn,2])
 SOL = np.zeros([nn])

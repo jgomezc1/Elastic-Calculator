@@ -29,7 +29,7 @@ h = 24.0
 ietype = 9
 order  = 2
 var = geo.beam(L, h, 0.2 , ietype)
-geo.create_mesh(order , var  , seemesh = True)
+geo.create_mesh(order , var )
 nodes , elements , nn = geo.writefiles(ietype , var)
 #
 coords=np.zeros([nn,2])

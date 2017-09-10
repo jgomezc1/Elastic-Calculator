@@ -24,7 +24,7 @@ dt = Tt / ninc
 N = 10
 M = 10
 var = geo.memb(b , a , c , ietype)
-geo.create_mesh(order , var  , seemesh = True)
+geo.create_mesh(order , var )
 nodes , elements , nn = geo.writefiles(ietype , var)
 plo.viewmesh(nodes , elements , True)
 """
