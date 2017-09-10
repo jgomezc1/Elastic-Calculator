@@ -25,6 +25,8 @@ The code is written in Python and it depends on numpy and matplotlib. The Gmesh,
     pip install easygui
     pip install meshio
 
+To execute Gmsh directly from within the CALCULATOR you must modify the file config.yml available in the folder CALCULATOR and indicate the PATH to the Gmsh executable (see the current available version for an example).
+
 ## Authors
 - [Juan Gomez](http://www.eafit.edu.co/docentes-investigadores/Paginas/juan-gomez.aspx), Professor at Universidad EAFIT.
 - [Nicolás Guarín-Zapata](https://github.com/nicoguaro), Researcher at Universidad EAFIT.
