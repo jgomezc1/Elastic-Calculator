@@ -776,5 +776,30 @@ def membraneP(x, y , N , M , Ninc , dt ):
 
     return(w)
 
+def ellipse(a, b , x , y):
+    """Evalua la función de alabeo de un eje eliptico
 
+    Parametros
+    ----------
+    x : float
+        x-coordenada
+    y : float
+        y-coordenada
+    a : float
+        Eje mayor del elipse
+    b : float
+        Eje menor del elipse
+
+    Devuelve
+    -------
+    w : ndarray (float)
+        Arreglo con el valor de la función de alabeo en cada punto
+
+    """
+    c1=b**2-a**2
+    c2=b**2+a**2
+    c3=c1/c2
+    alabeo=x*y*c3
+                
+    return(alabeo)
 

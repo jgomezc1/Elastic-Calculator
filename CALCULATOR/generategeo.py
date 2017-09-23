@@ -822,3 +822,78 @@ def memb(l, h, c , ietype):
 
     return var
 
+def Ellipse(a , b , c , ietype):
+    try:
+        import easygui
+        var = easygui.enterbox("Ingrese el nombre del archivo")
+
+    except:
+        var   = raw_input('Ingrese el nombre del archivo:')
+        
+    file_name=open(var +'.geo', 'w')
+
+    file_name.write('%25s \n' % ('// .geo para eje de perfil eliptico'))
+	
+    file_name.write('%21s \n' % ('// autor: Sonia C. Garcia'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%4s %6.3f %25s \n' % ('c = ', c, '; 		// Tamaño de los elementos'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%3s %6.3f %1s \n' % ('a= ', a, '; 		// Eje mayor'))
+	
+    file_name.write('%3s %6.3f %1s \n' % ('b= ', b, '; 		// Eje menor'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%23s \n' % ('// Definiendo los puntos'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%42s \n' % ('Point(1) = {0 , 0 , 0, c};		// {x,y,z, size}'))
+    file_name.write('%26s \n' % ('Point(2) = {a  , 0 , 0, c};'))
+    file_name.write('%26s \n' % ('Point(3) = {-a  , 0 , 0, c};'))
+    file_name.write('%27s \n' % ('Point(4) = {0 , b , 0, c};'))
+    file_name.write('%27s \n' % ('Point(5) = {0 , -b , 0, c};'))
+	
+    file_name.write('%0s \n' % (''))	
+
+    file_name.write('%24s \n' % ('// Definiendo las líneas de frontera'))
+    file_name.write('%48s \n' % ('Ellipse(1) = {2, 1, 3, 4};'))
+    file_name.write('%17s \n' % ('Ellipse(2) = {4, 1, 3, 3};'))
+    file_name.write('%17s \n' % ('Ellipse(3) = {3, 1, 2, 5};'))
+    file_name.write('%17s \n' % ('Ellipse(4) = {5, 1, 2, 2};'))
+	
+    file_name.write('%0s \n' % (''))
+
+    file_name.write('%14s \n' % ('// Juntando las líneas'))
+    file_name.write('%60s \n' % ('Line Loop(1) = {1, 2, 3, 4};	// {Id_line1,id_line2, ... }'))
+	
+    file_name.write('%0s \n' % (''))
+
+    file_name.write('%35s \n' % ('// surface for mesh 			// {Id_Loop}'))
+    file_name.write('%23s \n' % ('Plane Surface(1) = {1};'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%19s \n' % ('// For Mesh 4 nodes'))
+    if ietype == 3:
+        file_name.write('%40s \n' % ('Recombine Surface {1};			// {Id_Surface}'))
+    else:
+        file_name.write('%40s \n' % ('//Recombine Surface {1};			// {Id_Surface}'))
+	
+    file_name.write('%0s \n' % (''))
+	
+    file_name.write('%19s \n' % ('// "Structure" mesh'))
+    file_name.write('%41s \n' % ('Transfinite Surface {1};		// {Id_Surface}'))
+	
+    file_name.write('%0s \n' % (''))
+
+    file_name.write('%28s \n' % ('Physical Surface(100) = {1};'))
+	
+    file_name.close()
+    
+    return var
+

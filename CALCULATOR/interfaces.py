@@ -514,3 +514,48 @@ def box_hlp():
 
     return
 
+def ellipse_hlp():
+    
+    try:
+        import easygui
+        easygui.msgbox(msg="Seccion transversal eliptica de un eje sometido a torsion pura.",
+        title="Elipse", 
+        ok_button="Continuar",
+        image='ellipse.gif')
+    except:
+        print ("No easygui module")
+    
+    return
+def ellipse():
+    
+    try:
+        import easygui
+        msg = "Ingrese los parametros del problema"
+        title = "Elipse"
+        fieldNames = ["a" , "b","Tamaño del elemento","Tipo de elemento","Orden","Contornos"]
+        fieldValues = []  ## se empieza con espacios blancos
+        fieldValues = easygui.multenterbox(msg , title , fieldNames)
+        
+    
+        a     = float(fieldValues[0])
+        b     = float(fieldValues[1])
+        c  = float(fieldValues[2]) 
+        ietype  = int(fieldValues[3])
+        order = int(fieldValues[4])
+        contornos = int(fieldValues[5])
+    except:
+        a1 = raw_input("a")
+        b1 = raw_input("b")
+        d1 = raw_input("Tamaño del elemento")
+        c1 = raw_input("Tipo de elemento")
+        e1= raw_input("Orden")
+        f1= raw_input("Contornos")
+        a = float(a1)
+        b = float(b1)
+        c = float(d1)
+        ietype = int(c1)
+        order=int(e1)
+        order=int(f1)
+            
+    return a , b , c , ietype , order, contornos
+
