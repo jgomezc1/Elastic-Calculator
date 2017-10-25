@@ -15,7 +15,8 @@ def myfunction(x, y, p):
     """
     Template for user defined elasticity solution.
     """
-    ux=(x**2.+y**2.)**p
+#    ux=(x**2.+y**2.)**p
+    ux= -x-y
     return ux
 
 
@@ -134,6 +135,17 @@ def boussipol(x,y,p):
     sigma = srp
     return sigma
 
+def cerrutipol(x,y,p):
+    r=(x**2.+y**2.)**0.5
+    teta = np.arcsin(y/r)
+    Pi = np.pi
+    if (r < 0.00001):
+        srp = 0.0
+    else:
+        srp = (-2*p/Pi)*(np.sin(teta)/r)
+    sigma = srp
+    return sigma
+
 
 def boussicar(x,y,p):
     r=(x**2.+y**2.)**0.5
@@ -150,7 +162,7 @@ def boussicar(x,y,p):
     return Sxx , Syy , Txy
 
 
-def boussidis(x , y , p , E , enu , d):
+def boussidispol(x , y , p , E , enu , d):
     r=(x**2.+y**2.)**0.5
     teta = np.arcsin(y/r)
     Pi = np.pi
@@ -162,7 +174,6 @@ def boussidis(x , y , p , E , enu , d):
         ur = (-2*p/Pi/E)*(np.cos(teta)*np.log(r))-(omnu*p/Pi/E)*(teta*np.sin(teta))+(2*p/Pi/E)*(np.cos(teta)*np.log(d))
         ut = ( 2*enu*p/Pi/E)*(np.sin(teta)) + (2*p/Pi/E)*(np.sin(teta)*np.log(r))-(omnu*p/Pi/E)*(teta*np.cos(teta))+(omnu*p/Pi/E)*(np.sin(teta))-(2*p/Pi/E)*(np.sin(teta)*np.log(d))
     return ur , ut
-
 
 def flamantP(x , y , p , phi):
     r=(x**2.+y**2.)**0.5

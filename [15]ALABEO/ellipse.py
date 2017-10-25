@@ -22,7 +22,7 @@ Creando los archivos .msh
 gui.ellipse_hlp()
 a , b , c , ietype , order, contornos =gui.ellipse()
 var = geo.Ellipse(a , b , c , ietype);
-geo.create_mesh(order , var  , seemesh = False)
+geo.create_mesh(order , var )
 nodes , elements , nn = geo.writefiles(ietype , var)
 """
 Define solution arrays

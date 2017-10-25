@@ -24,9 +24,10 @@ for j in range(5 , 75):
     for i in range(ninc):
         signal[i , k ] =  DATOS[j , i] + k/5
     sig.grafsignalG(signal[: , k] , 'salida' , 'Displacement' , 'l' , 0.0 , 20.0 , dt , 0)
-    x, Samag , A , nfs = sig.Ftrans(signal[: , k] , 129 , dt , fs)
-    sig.grafFourier(Samag , x , nfs , 'Fourier', 0.0 , 0.0 , 0.0 , 0.0 , 1)
     k = k+1
-sig.grafsignalG(signal[: , 5] , 'salida' , 'Displacement' , 'l' , 0.0 , 20.0 , dt , 2)
-x, Samag , A , nfs = sig.Ftrans(signal[: , 5] , 129 , dt , fs)
-sig.grafFourier(Samag , x , nfs , 'Fourier', 0.0 , 0.0 , 0.0 , 0.0 , 4)
+#    x, Samag , A , nfs = sig.Ftrans(signal[: , k] , 129 , dt , fs)
+#    sig.grafFourier(Samag , x , nfs , 'Fourier', 0.0 , 0.0 , 0.0 , 0.0 , 1)
+#       k = k+1
+#sig.grafsignalG(signal[: , 5] , 'salida' , 'Displacement' , 'l' , 0.0 , 20.0 , dt , 2)
+#x, Samag , A , nfs = sig.Ftrans(signal[: , 5] , 129 , dt , fs)
+#sig.grafFourier(Samag , x , nfs , 'Fourier', 0.0 , 0.0 , 0.0 , 0.0 , 4)

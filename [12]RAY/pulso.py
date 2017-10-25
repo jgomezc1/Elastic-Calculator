@@ -15,10 +15,10 @@ init_printing()
 Creates model.
 """
 dt = 0.025
-Tt = 20.0
-tc = 1.0
+Tt = 8.0
+tc = 4.0
 nt = int(Tt / dt )
-fc = 2.0
+fc = 1.0
 
 Rick, time = sig.ricker(nt , Tt, tc, fc)
 plt.plot(time , Rick)
