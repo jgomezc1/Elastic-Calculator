@@ -14,15 +14,15 @@ init_printing()
 """
 Creates model.
 """
-dt = 0.025
-Tt = 8.0
-tc = 4.0
+fc = 4.0
+Tt = 2.0/fc
+tc = Tt/2
+dt = 0.0005
 nt = int(Tt / dt )
-fc = 1.0
 
-Rick, time = sig.ricker(nt , Tt, tc, fc)
+Rick, time = sig.ricker(nt , Tt , tc, fc)
 plt.plot(time , Rick)
 x , Samag , A , nfs = sig.Ftrans(Rick , nt , dt , Tt)
-sig.grafFourier(Samag , x , nfs , 'FAS', 0.0 , 8.0 , 0.0 , 5.0 , 2)
+sig.grafFourier(Samag , x , nfs , 'FAS', 0.0 , 4.0 , 0.0 , 0.2 , 2)
 
 #np.savetxt('respuesta.txt' , SOL )

@@ -21,6 +21,7 @@ def Ftrans(datos, ndats, dt, fs):
     # Smooth the spectrum.
     Sa = Aa[1:nfr]
     Samag = smooth(Sa , x , fs)
+    Samag = Samag/ndats
     nfs = nfr-1
     return x, Samag , A , nfs
 
@@ -119,7 +120,7 @@ def grafFourier(Sas , x , nfr , var, xmin , xmax , ymin , ymax , Nfig):
     plt.xlabel('Frecuencia (Hz)')
     plt.ylabel('Amplitud')
     #plt.legend(['Fourier spectral amplitude'])
-#    plt.xlim(xmin,xmax); plt.ylim(ymin,ymax)
+    plt.xlim(xmin,xmax); plt.ylim(ymin,ymax)
 #    plt.xscale('log')
 #    plt.yscale('log')
     plt.savefig(var1)

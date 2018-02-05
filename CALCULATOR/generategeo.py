@@ -456,7 +456,13 @@ def beam(l, h, c , ietype):
     return var
 #
 def quad(l, h, c , ietype):
-    var = raw_input('jobname:--?')
+    try:
+        import easygui
+        var = easygui.enterbox("Enter the job name")
+
+    except:
+         var   = raw_input('Enter the job name: ')
+#    var = raw_input('jobname:--?')
     file_name=open(var +'.geo', 'w')
 
     file_name.write('%25s \n' % ('// Input .geo for quad domain'))
