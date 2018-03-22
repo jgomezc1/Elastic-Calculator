@@ -153,3 +153,11 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Gmsh mesh files
+*.msh
+
+# Mesh specific text files
+*.txt
+
+# Paraview created movies
+*.avi
