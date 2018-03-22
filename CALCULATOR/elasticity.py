@@ -15,8 +15,8 @@ def myfunction(x, y, p):
     """
     Template for user defined elasticity solution.
     """
-#    ux=(x**2.+y**2.)**p
-    ux= -x-y
+    ux=(x**2.+y**2.)**p
+#    ux= -x-y
     return ux
 
 

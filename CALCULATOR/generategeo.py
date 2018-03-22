@@ -148,12 +148,13 @@ def ring(r1, r2, c, ietype):
 
 
 def mygeom(l, h, c , ietype):
-    try:
-        import easygui
-        var = easygui.enterbox("Enter the job name")
-
-    except:
-        var   = raw_input('Enter the job name: ')
+#    try:
+#        import easygui
+#        var = easygui.enterbox("Enter the job name")
+#
+#    except:
+#        var   = raw_input('Enter the job name: ')
+    var ='mydomain'
     file_name=open(var +'.geo', 'w')
 
     file_name.write('%25s \n' % ('// Input .geo for Boussinesq'))
