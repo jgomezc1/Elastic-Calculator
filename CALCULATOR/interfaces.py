@@ -154,25 +154,23 @@ def quad_prs():
         import easygui
         msg = "Square Box"
         title = "Enter the problem parameters"
-        fieldNames = ["Length" , "Height" , "Total increments (4097)" , "Angle of incidence" , "Wave propagation velocity" , "Total time" , "Central time" , "Central frequency" ]
+        fieldNames = ["Length" , "Height" , "Angle of incidence" , "Wave propagation velocity" , "Total time" , "Central time" , "Central frequency" ]
         fieldValues = []  # we start with blanks for the values
         fieldValues = easygui.multenterbox(msg , title , fieldNames)
 
 
         L     = float(fieldValues[0])
         h     = float(fieldValues[1])
-        ninc  = int(fieldValues[2])
-        gamma = float(fieldValues[3])
-        beta  = float(fieldValues[4])
-        Tt    = float(fieldValues[5])
-        Tc    = float(fieldValues[6])
-        fc    = float(fieldValues[7])
+        gamma = float(fieldValues[2])
+        beta  = float(fieldValues[3])
+        Tt    = float(fieldValues[4])
+        Tc    = float(fieldValues[5])
+        fc    = float(fieldValues[6])
 
 
     except:
         a1 = raw_input("Length")
         b1 = raw_input("Height")
-        c1 = raw_input("Total increments")
         d1 = raw_input("Angle of incidence")
         e1 = raw_input("Wave velocity")
         f1 = raw_input("Total time")
@@ -180,14 +178,13 @@ def quad_prs():
         h1 = raw_input("Central frequency")
         L = float(a1)
         h = float(b1)
-        ninc = int(c1)
         gamma = float(d1)
         beta = float(e1)
         Tt = float(f1)
         Tc = float(g1)
         fc = float(h1)
 
-    return L , h , ninc , gamma , beta , Tt , Tc , fc
+    return L , h , gamma , beta , Tt , Tc , fc
 
 def membrane_prs():
 

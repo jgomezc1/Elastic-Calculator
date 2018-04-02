@@ -591,7 +591,7 @@ def DifractionSesma(x,y):
     return(signal)
 
 
-def single_ray(x, y , Gamma , Beta , Nt , Tt , Tc , fc):
+def single_ray(x, y , Gamma , Beta , Tt , Tc , fc):
     """Evaluates a plane wave
 
     Parameters
@@ -615,7 +615,8 @@ def single_ray(x, y , Gamma , Beta , Nt , Tt , Tc , fc):
 #   Pulse parameters
 #
     dt = 1.0/(8.0*fc)
-    Nf =int((Nt - 1)/2)
+    Nt = int(Tt/dt)
+    Nf = int((Nt - 1)/2)
     df = 1/(Nt*dt)
 
     lif = df
@@ -627,15 +628,15 @@ def single_ray(x, y , Gamma , Beta , Nt , Tt , Tc , fc):
     nx1 = np.sin(Gamma)
     ny1 =-np.cos(Gamma)
 #
-    nx2 = np.sin(2.9*Gamma)
-    ny2 =-np.cos(2.9*Gamma/3.0)
+#    nx2 = np.sin(2.9*Gamma)
+#    ny2 =-np.cos(2.9*Gamma/3.0)
 #
 #   Compute the Transfer function
 #
     for j in range (0, len(fre)):
         kapa = 2.0*np.pi*fre[j]/Beta
         pha_ang_1 = - kapa*(nx1*x + ny1*y)
-        pha_ang_2 = - kapa*(nx2*x + ny2*y)
+#        pha_ang_2 = - kapa*(nx2*x + ny2*y)
 #        desplaz[j] = np.exp(1j*pha_ang_1) + np.exp(1j*pha_ang_2)
         desplaz[j] = np.exp(1j*pha_ang_1)
 #
@@ -655,7 +656,7 @@ def single_ray(x, y , Gamma , Beta , Nt , Tt , Tc , fc):
 
     signal = sig.IFtrans(TF , Nt , dt)
 
-    return(signal)
+    return signal
 
 def membrane(x, y , a , b , beta , N , M , Ninc , dt ):
 

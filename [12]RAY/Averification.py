@@ -14,6 +14,8 @@ import signals as sig
 # Process input motion
 #
 plt.figure(0)
+
+
 dt = 0.077
 fs = 10.0
 DATOS = np.loadtxt('respuesta.txt' )

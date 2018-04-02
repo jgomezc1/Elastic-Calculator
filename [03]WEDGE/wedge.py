@@ -33,39 +33,39 @@ import interfaces as gui
 gui.wedge_hlp()
 c , ietype , order =gui.mesh_gui()
 phid , l , nu , E , S = gui.wedge_prs()
-#phi  = ela.radianes(phid)
-#b = l*np.cos(phi)
-#h = l*np.sin(phi)
+phi  = ela.radianes(phid)
+b = l*np.cos(phi)
+h = l*np.sin(phi)
+
+var = geo.wedge(l , phid, 0.1 , ietype)
+geo.create_mesh(order , var )
+nodes , elements , nn = geo.writefiles(ietype , var)
+plo.viewmesh(nodes , elements , True)
+coords=np.zeros([nn,2])
+U=np.zeros([nn , 2])
+Sig=np.zeros([nn , 2])
 #
-#var = geo.wedge(l , phid, 0.1 , ietype)
-#geo.create_mesh(order , var )
-#nodes , elements , nn = geo.writefiles(ietype , var)
-#plo.viewmesh(nodes , elements , True)
-#coords=np.zeros([nn,2])
-#U=np.zeros([nn , 2])
-#Sig=np.zeros([nn , 2])
-##
-#coords[:,0]=nodes[:,1]
-#coords[:,1]=nodes[:,2]
-#"""
-#(ii)Compute the solution after coding the user defined function cunia().
-#Define as many parameters as required by the specific solution.
-#"""
-#for i in range(0,nn):
-#    x = coords[i,0]
-#    y = coords[i,1]
-#    X = x+b
-#    Y = y-h
-#    ux , uy , sx , sy = ela.cunia(X , Y , phi , l , nu , E , S)
-#    U[i , 0] = ux
-#    U[i , 1] = uy
-#    Sig[i , 0] = sx
-#    Sig[i , 1] = sy
-#"""
-#(iii) Plot the solution using the appropriate function from plotter.py
-#"""
-#plo.plot_disp(U, nodes, elements , 1 , plt_type="contourf", levels=12 , savefigs = True)
-#plo.plot_stress(Sig, nodes, elements , 2 , savefigs = True)
+coords[:,0]=nodes[:,1]
+coords[:,1]=nodes[:,2]
+"""
+(ii)Compute the solution after coding the user defined function cunia().
+Define as many parameters as required by the specific solution.
+"""
+for i in range(0,nn):
+    x = coords[i,0]
+    y = coords[i,1]
+    X = x+b
+    Y = y-h
+    ux , uy , sx , sy = ela.cunia(X , Y , phi , l , nu , E , S)
+    U[i , 0] = ux
+    U[i , 1] = uy
+    Sig[i , 0] = sx
+    Sig[i , 1] = sy
+"""
+(iii) Plot the solution using the appropriate function from plotter.py
+"""
+plo.plot_disp(U, nodes, elements , 1 , plt_type="contourf", levels=12 , savefigs = True)
+plo.plot_stress(Sig, nodes, elements , 2 , savefigs = True)
 #
 
 #
