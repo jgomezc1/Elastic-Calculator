@@ -53,5 +53,5 @@ Plot the solution
 """
 plo.plot_SFIELD(SOLS, nodes , elements , 1 , plt_type ="contourf", levels = 100 )
 #plo.plot_disp(SOLU, nodes   , elements , 2 , plt_type="contourf" ,   levels = 12 )
-#plo.plot_TFIELD(SOLC, nodes , elements , 3 , plt_type="contourf" , levels = 24  )
+plo.plot_TFIELD(SOLC, nodes , elements , 3 , plt_type="contourf" , levels = 24  )
 #plo.viewmesh(nodes , elements , True)
