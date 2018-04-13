@@ -161,3 +161,6 @@ $RECYCLE.BIN/
 
 # Paraview created movies
 *.avi
+
+# Paraview files
+*.vtk
