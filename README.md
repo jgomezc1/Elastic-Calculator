@@ -1,6 +1,6 @@
 # Elastic-Calculator
 
-[![Binder](https://mybinder.org/v2/gh/jgomezc1/Elastic-Calculator/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jgomezc1/Elastic-Calculator/master)
 
 
 ![Scattering of SH waves.](./docs/img/trifunac.gif)
