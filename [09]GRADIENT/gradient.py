@@ -25,7 +25,7 @@ import generategeo as geo
 Creates mesh files.
 """
 L = 24.0
-h = 24.0
+h = 3.0
 ietype = 9
 order  = 2
 var = geo.beam(L, h, 0.2 , ietype)
