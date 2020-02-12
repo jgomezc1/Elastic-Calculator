@@ -1,4 +1,8 @@
 # Elastic-Calculator
+
+[![Binder](https://mybinder.org/v2/gh/jgomezc1/Elastic-Calculator/master)
+
+
 ![Scattering of SH waves.](./docs/img/trifunac.gif)
 
 The Repo contains tools to visualized closed-form solutions over 2D-computational domains discretized into finite elements.
