@@ -44,9 +44,11 @@ def create_mesh(order, fname=''):
 
 
 def writefiles(ietype, var=''):
+    
+    mesh = meshio.read(var +'.msh')
+    points = mesh.points
+    cells  = mesh.cells
 
-    points, cells, point_data, cell_data, field_data = \
-        meshio.read(var +'.msh')
     if ietype == 2:
         elements = cells["triangle"]
         els_array = np.zeros([elements.shape[0], 6], dtype=int)
