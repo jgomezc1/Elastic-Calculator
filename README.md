@@ -1,7 +1,5 @@
 # Elastic-Calculator
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jgomezc1/Elastic-Calculator/master)
-
 
 ![Displacement field in a wrench.](./CALCULATOR/img/wrench.png)
 
