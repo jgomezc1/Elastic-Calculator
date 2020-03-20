@@ -34,7 +34,6 @@ To execute Gmsh directly from within the CALCULATOR you must modify the file con
 ## Authors
 - [Juan Gomez](http://www.eafit.edu.co/docentes-investigadores/Paginas/juan-gomez.aspx), Professor at Universidad EAFIT.
 - [Nicolás Guarín-Zapata](https://github.com/nicoguaro), Researcher at Universidad EAFIT.
-- [Juan Carlos Vergara](https://github.com/jvergar2), PhD Student at Universidad EAFIT.
 
 ## Instructions
 
