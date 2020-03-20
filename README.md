@@ -8,7 +8,7 @@
 The Repo contains tools to visualized closed-form solutions over 2D-computational domains discretized into finite elements.
 
 ## Features
-The Elastic-Calculator allows the visualization of closed-form solutions (e.g., elasticity theory solutions) using finite element meshes. It has been  created for academic purposes and it is part of the teaching material developed for the courses IC0602 Introduction to the Finite Element Methods and IC0285 Computational Modeling at Universidad EAFIT.
+The Elastic-Calculator allows the visualization of closed-form solutions (e.g., elasticity theory solutions) using finite element meshes. It has been  created for academic purposes and it is part of the teaching material developed for the courses **IC0602 Introduction to the Finite Element Methods** , **IC0285 Computational Modeling** and **Continuous Mechanics** at Universidad EAFIT.
 
 In order to visualize a solution (available within this Repo) the user must execute the script for the problem of interest selected from the provided data-base. Once the problem parameters are defined the script will create a finite element mesh using [Gmsh](http://gmsh.info/) (the free three-dimensional finite element mesh generator) in the background. The closed-form solution, coded in the python module elasticity.py, is then evaluated at the nodes of the finite element assemblage. In order to provide images of the solution the mesh is triangulated by the post-processing module plotter.py. The triangulation is directly used by Python to produce an intrpolated image using the nodal fields. User provided solutions, different from the ones contained in the repo can also be implemented by adding the specific function to the module elasticity.py.
 
