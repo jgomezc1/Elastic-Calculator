@@ -9,7 +9,83 @@ The Repo contains tools to visualized closed-form solutions over 2D-computationa
 The Elastic-Calculator allows the visualization of closed-form solutions (e.g., elasticity theory solutions) using finite element meshes. It has been  created for academic purposes and it is part of the teaching material developed for the courses **IC0602 Introduction to the Finite Element Methods** , **IC0285 Computational Modeling** and **Continuous Mechanics** at Universidad EAFIT.
 
 ## How it works
-In order to visualize a solution (available within this Repo) the user must execute the script for the problem of interest selected from the provided data-base. Each subroutine is identified with a number and the name of the solution, for instance [02]RING refers to the solution for a ring under pressure. Once the problem parameters are defined the script will create a finite element mesh using [Gmsh](http://gmsh.info/) (the free three-dimensional finite element mesh generator) in the background. The closed-form solution, coded in the python module elasticity.py (available in the folder CALCULATOR), is then evaluated at the nodes of the finite element mesh. To provide visualizations of the solution the mesh is triangulated by the post-processing module **plotter.py**. The triangulation is directly used by Python to produce an interpolated image using the nodal fields. User provided solutions, different from the ones contained in the repo can also be implemented by adding the specific function to the module **elasticity.py**.
+In order to visualize a solution (available within this Repo) the user must execute the script for the problem of interest selected from the provided data-base. Each subroutine is identified with a number and the name of the solution, for instance [02]RING refers to the solution for a ring under pressure. Once the problem parameters are defined the script will create a finite element mesh using [Gmsh](http://gmsh.info/) (the free three-dimensional finite element mesh generator) in the background. The closed-form solution, coded in the python module elasticity.py (available in the folder CALCULATOR), is then evaluated at the nodes of the finite element mesh. To provide visualizations of the solution the mesh is triangulated by the post-processing module **plotter.py**. The triangulation is directly used by Python to produce an interpolated image using the nodal fields.
+
+User provided solutions, different from the ones contained in the repo can also be implemented by adding the specific function to the module **elasticity.py** using a template like the one below.
+
+```python
+def myfunction(x, y, p):
+    """
+    Template for user defined elasticity solution.
+    """
+    ux=(x**2.+y**2.)**p
+#    ux= -x-y
+    return ux
+```
+Once the subroutine is added to the the file **elasticity.py** it can be invoked from the evaluation script as described in the folder [01]TEMPLATE and described here as follows:
+
+```python
+import numpy as np
+from os import sys
+sys.path.append('../CALCULATOR/')
+import elasticity as ela
+import plotter as plo
+import generategeo as geo
+from sympy import init_printing
+init_printing()
+"""
+(i)Creates model (Code your own function into the generategeo.py module).
+"""
+try:
+    import easygui
+    msg = "Solution plotter template"
+    title = "Enter the problem parameters"
+    fieldNames = ["Length","Width","Element size","Element type","Intrpolation order"]
+    fieldValues = []  # we start with blanks for the values
+    fieldValues = easygui.multenterbox(msg,title, fieldNames)
+    
+
+    l = float(fieldValues[0])
+    h = float(fieldValues[1])
+    c = float(fieldValues[2])
+    ietype = int(fieldValues[3])
+    order = int(fieldValues[4])
+except:
+    a1 = input("Length")
+    b1 = input("Width")
+    c1 = input("Element size")
+    ietype1 = input("Element type")
+    order1 = input("Interpolation order")
+    l = float(a1)
+    h = float(b1)
+    c = float(c1)
+    ietype = int(ietype1)
+    order = int(order1)
+var = geo.mygeom(l, h, c , ietype)
+geo.create_mesh(order , var )
+nodes , elements , nn = geo.writefiles(ietype , var)
+"""
+Define solution arrays
+"""
+coords=np.zeros([nn,2])
+SOL = np.zeros([nn]) # Modificar el arreglo SOL para graficar campos de diferente orden, e.g., vectores, tensores.
+coords[:,0]=nodes[:,1]
+coords[:,1]=nodes[:,2]
+"""
+(ii)Compute the solution after coding the user defined function myfunction().
+Define as many parameters as required by the specific solution.
+"""
+par1 = 1.0
+for i in range(0,nn):
+    x = coords[i,0]
+    y = coords[i,1]
+    uu =ela.myfunction(x,y,par1)
+    SOL[i] = uu
+"""
+(iii) Plot the solution using the appropriate function from plotter.py
+"""
+plo.plot_SFIELD(SOL, nodes , elements, 1 , plt_type ="contourf", levels = 12 )
+```
 
 The _repo_ is organized as follows:
 
