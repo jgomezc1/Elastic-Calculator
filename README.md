@@ -3,7 +3,7 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jgomezc1/Elastic-Calculator/master)
 
 
-![Scattering of SH waves.](./docs/img/trifunac.gif)
+![Displacement field in a wrench.](./notebooks/img/wrench.png)
 
 The Repo contains tools to visualized closed-form solutions over 2D-computational domains discretized into finite elements.
 
